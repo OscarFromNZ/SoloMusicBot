@@ -22,9 +22,6 @@ module.exports = (client) => {
         console.log("Successfully registered " + command);
     }
 
-    console.log(client.commands);
-    console.log(commandFiles);
-
     // When the client is ready, this only runs once
     client.once('ready', async () => {
         console.log(`${client.user.tag} is now online!`);

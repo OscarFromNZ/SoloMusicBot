@@ -34,7 +34,7 @@ client.on('interactionCreate', async (interaction) => {
     if (!command) return;
 
     // checking if the cmd given is a music command 🎵
-    if (commandName == 'join' || commandName == 'leave') {
+    if (commandName == 'join' || commandName == 'leave' || commandName == 'play') {
         // checking if a queue exists, if it doesn't, we make a queue
         let serverQueue = cache.get(interaction.guild.id);
         if (!serverQueue) {

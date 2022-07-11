@@ -3,7 +3,7 @@ const {
 } = require('@discordjs/builders');
 
 const {
-    MessageEmbed,
+    MessageEmbed, Permissions,
 } = require('discord.js');
 
 // well, we need to join a voice channel soooo kinda need diss
@@ -18,10 +18,23 @@ module.exports = {
 
     async execute(client, interaction, cache) {
         console.log("Ran " + interaction.commandName + " command");
+        const permissions = await interaction.member.voice.channel.permissionsFor(client.user.id);
 
-        /*
-            Add checks, eg: if there isn't a voice channel
-        */
+        if (!interaction.member.voice.channel.id) {
+            let emb = new MessageEmbed()
+                .setAuthor({ name: "You need to be in a voice channel to run this command", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
+                .setColor(vars.dangerColour)
+            await interaction.reply({ embeds: [emb] })
+            return;
+        }
+
+        if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
+            const emb = new MessageEmbed()
+                .setAuthor({ name: "I do not have permission to join or speak in this channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
+                .setColor(vars.dangerColour)
+            await interaction.reply({ embeds: [emb] })
+            return;
+        }
 
         const guild = client.guilds.fetch(interaction.member.guild.id).then(guild => {
             const channel = guild.channels.fetch(interaction.member.voice.channel.id).then(channel => {
@@ -31,11 +44,14 @@ module.exports = {
                     adapterCreator: guild.voiceAdapterCreator
                 })
 
-                interaction.reply("Joined your voice channel hehe");
+                const emb = new MessageEmbed()
+                    .setAuthor({ name: "Joined your current voice channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
+                    .setColor(vars.successColour)
+                interaction.reply({ embeds: [emb] })
 
                 // setting the connection to the serverqueue object so we can access it later
                 let serverQueue = cache.get(interaction.guild.id);
-                if( !serverQueue ) console.log("Ran " + interaction.commandName + " but could not find a queue")
+                if (!serverQueue) console.log("Ran " + interaction.commandName + " but could not find a queue")
                 serverQueue.connection = connection;
                 cache.set(serverQueue, interaction.guild.id);
             })
