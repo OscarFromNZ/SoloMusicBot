@@ -8,7 +8,8 @@ const {
 
 const play = require('play-dl');
 
-const urlAPI = require('../src/isValidURL');
+const urlAPI = require('../src/functions/isValidURL');
+const playAPI = require('../src/functions/playSong');
 const vars = require('../variables.json');
 
 module.exports = {
@@ -43,39 +44,39 @@ module.exports = {
 
         const serverQueue = cache.get(interaction.guild.id);
 
-
         let input = interaction.options.getString('song');
+        console.log("Input given is " + input);
         let url;
 
-        if (urlAPI.isValidURL(input) == true) {
+        if (urlAPI.isValidHttpUrl(input) == true) {
             console.log("Input given was a YT link");
 
             // getting song URL
             url = interaction.options.getString('song');
 
             // getting song info
-            let songInfo = await play.video_info(interaction.options.getString('song'));
-            /*
-            const song = {
-                title: songInfo.video_details.title,
-                url: interaction.options.getString('song'),
-                info: songInfo,
-            };
-            */
+            let songInfo = await play.video_info(url);
+            serverQueue.songs.push(songInfo);
+            console.log(serverQueue.songs);
 
             console.log("URL is " + url);
+                cache.set(interaction.guuld.id, serverQueue); // Saving data to cache
 
         } else {
             console.log("Input is not a YT link");
 
-            // getting song info AND url
-            let search = interaction.options.getString('input');
-            let yt_info = await play.search(search, { limit: 1 });
-            let songInfo = await play.video_info(yt_info[0].url);
+            // getting song info AND url for it
+            let yt_info = await play.search(input, { limit: 1 });
 
             url = yt_info[0].url;
-            console.log("URL is " + url);
 
+            // getting song info
+            let songInfo = await play.video_info(url);
+            serverQueue.songs.push(songInfo);
+            console.log(serverQueue.songs);
+
+            console.log("URL is " + url);
+                cache.set(interaction.guuld.id, serverQueue); // Saving data to cache
         }
 
     }
