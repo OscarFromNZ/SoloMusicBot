@@ -26,17 +26,33 @@ var cache = new Map();
 
 client.on('interactionCreate', async (interaction) => {
     // if the interaction is not a command, eg: it's a button, return
-    if(!interaction.isCommand) return;
+    if (!interaction.isCommand) return;
 
     const command = client.commands.get(interaction.commandName);
+    const commandName = interaction.commandName;
 
-    if(!command) return;
+    if (!command) return;
+
+    // checking if the cmd given is a music command 🎵
+    if (commandName == 'join' || commandName == 'leave') {
+        // checking if a queue exists, if it doesn't, we make a queue
+        let serverQueue = cache.get(interaction.guild.id);
+        if (!serverQueue) {
+            let queue = {
+                vc: undefined,
+                connection: undefined,
+                songs: [],
+                loop: false,
+            }
+            cache.set(interaction.guild.id, queue);
+        }
+    }
 
     try {
         return await command.execute(client, interaction, cache);
 
-    } catch(err) {
-        if(err) console.log(err);
+    } catch (err) {
+        if (err) console.log(err);
         await interaction.reply({
             content: 'An error was detected, system has shut down temporarily.',
             ephemeral: true
