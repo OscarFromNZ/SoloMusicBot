@@ -7,7 +7,7 @@ const {
 } = require('discord.js');
 
 // well, we need to join a voice channel soooo kinda need diss
-const { joinVoiceChannel } = require('@discordjs/voice');
+const { joinVoiceChannel, getVoiceConnection } = require('@discordjs/voice');
 
 const vars = require('../variables.json');
 
@@ -19,6 +19,13 @@ module.exports = {
     async execute(client, interaction, cache) {
         console.log("Ran " + interaction.commandName + " command");
         const serverQueue = cache.get(interaction.guild.id);
+
+        if ( !connection ) {
+            console.log("No connection found");
+            const connection = getVoiceConnection(interaction.guild.id);
+            serverQueue.connection = connection;
+            cache.set(interaction.guild.id, serverQueue);
+        }
 
         const connection = serverQueue.connection;
         connection.destroy();

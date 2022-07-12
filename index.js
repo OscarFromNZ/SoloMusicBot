@@ -7,7 +7,7 @@ const {
 
 // starting in djs v13, we are required to specify which intents we are using in the client constructor
 const client = new Client({
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES]
 });
 
 // we require play-dl to get ++ stream music from YouTube

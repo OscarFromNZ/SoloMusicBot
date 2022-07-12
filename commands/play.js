@@ -1,3 +1,9 @@
+/*
+    FILE INFORMATION
+    All this file does is get the URL of the song, put it into an array and then send it over to playSong.js
+    playSong.js is where all the magic happens
+*/
+
 const {
     SlashCommandBuilder
 } = require('@discordjs/builders');
@@ -57,10 +63,11 @@ module.exports = {
             // getting song info
             let songInfo = await play.video_info(url);
             serverQueue.songs.push(songInfo);
-            console.log(serverQueue.songs);
 
             console.log("URL is " + url);
-                cache.set(interaction.guuld.id, serverQueue); // Saving data to cache
+                cache.set(interaction.guild.id, serverQueue); // Saving data to cache
+
+            playAPI.playSong(client, interaction, cache); // Calling the function to actually play the song
 
         } else {
             console.log("Input is not a YT link");
@@ -73,10 +80,12 @@ module.exports = {
             // getting song info
             let songInfo = await play.video_info(url);
             serverQueue.songs.push(songInfo);
-            console.log(serverQueue.songs);
 
             console.log("URL is " + url);
-                cache.set(interaction.guuld.id, serverQueue); // Saving data to cache
+                cache.set(interaction.guild.id, serverQueue); // Saving data to cache
+
+            playAPI.playSong(client, interaction, cache); // Calling the function to actually play the song
+            
         }
 
     }
