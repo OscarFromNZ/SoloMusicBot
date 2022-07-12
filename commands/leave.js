@@ -6,10 +6,8 @@ const {
     MessageEmbed,
 } = require('discord.js');
 
-// well, we need to join a voice channel soooo kinda need diss
-const { joinVoiceChannel, getVoiceConnection } = require('@discordjs/voice');
-
 const vars = require('../variables.json');
+const connectionAPI = require("../src/functions/getConnection");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -21,8 +19,8 @@ module.exports = {
         const serverQueue = cache.get(interaction.guild.id);
 
         if ( !connection ) {
-            console.log("No connection found");
-            const connection = getVoiceConnection(interaction.guild.id);
+            const connection = await connectionAPI.getConnection(client, interaction, cache);
+            console.log("New connection is " + connection);
             serverQueue.connection = connection;
             cache.set(interaction.guild.id, serverQueue);
         }
