@@ -17,20 +17,11 @@ const {
 const { createAudioPlayer, createAudioResource, StreamType, demuxProbe, NoSubscriberBehavior, AudioPlayerStatus, VoiceConnectionStatus, getVoiceConnection } = require('@discordjs/voice');
 const play = require('play-dl');
 
-const connectionAPI = require('./getConnection');
 
 module.exports = {
     async playSong(client, interaction, cache) {
         let serverQueue = cache.get(interaction.guild.id);
         let connection = serverQueue.connection;
-
-        if ( !connection ) {
-            console.log("No connection found");
-            const connection = await connectionAPI.getConnection(client, interaction, cache);
-            console.log("New connection is " + connection);
-            serverQueue.connection = connection;
-            cache.set(interaction.guild.id, serverQueue);
-        }
 
         let song = serverQueue.songs[0];
         let url = song.video_details.url;

@@ -54,6 +54,8 @@ module.exports = {
         console.log("Input given is " + input);
         let url;
 
+
+
         if (urlAPI.isValidHttpUrl(input) == true) {
             console.log("Input given was a YT link");
 
@@ -65,9 +67,9 @@ module.exports = {
             serverQueue.songs.push(songInfo);
 
             console.log("URL is " + url);
-                cache.set(interaction.guild.id, serverQueue); // Saving data to cache
+            cache.set(interaction.guild.id, serverQueue); // Saving data to cache
 
-            playAPI.playSong(client, interaction, cache); // Calling the function to actually play the song
+            await playAPI.playSong(client, interaction, cache); // Calling the function to actually play the song
 
         } else {
             console.log("Input is not a YT link");
@@ -82,11 +84,19 @@ module.exports = {
             serverQueue.songs.push(songInfo);
 
             console.log("URL is " + url);
-                cache.set(interaction.guild.id, serverQueue); // Saving data to cache
+            cache.set(interaction.guild.id, serverQueue); // Saving data to cache
 
-            playAPI.playSong(client, interaction, cache); // Calling the function to actually play the song
-            
+            await playAPI.playSong(client, interaction, cache); // Calling the function to actually play the song
+
         }
+        
+        let songInfo = serverQueue.songs[0];
+
+        const emb = new MessageEmbed()
+            .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
+            .setColor("#03fc6b")
+
+        await interaction.reply({ embeds: [emb] })
 
     }
 

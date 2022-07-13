@@ -7,7 +7,6 @@ const {
 } = require('discord.js');
 
 const vars = require('../variables.json');
-const connectionAPI = require("../src/functions/getConnection");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,13 +16,6 @@ module.exports = {
     async execute(client, interaction, cache) {
         console.log("Ran " + interaction.commandName + " command");
         const serverQueue = cache.get(interaction.guild.id);
-
-        if ( !connection ) {
-            const connection = await connectionAPI.getConnection(client, interaction, cache);
-            console.log("New connection is " + connection);
-            serverQueue.connection = connection;
-            cache.set(interaction.guild.id, serverQueue);
-        }
 
         const connection = serverQueue.connection;
         connection.destroy();
