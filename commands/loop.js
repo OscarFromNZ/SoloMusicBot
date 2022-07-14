@@ -18,7 +18,8 @@ module.exports = {
         const serverQueue = cache.get(interaction.guild.id);
 
         // Toggling loop bool
-        serverQueue.loop = !serverQueue.loop;
+        serverQueue.loop = serverQueue.loop ? false : true;
+        cache.set(interaction.guild.id, serverQueue);
 
         const emb = new MessageEmbed()
             .setAuthor({ name: "I have successfully toggled loop to " + serverQueue.loop, iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })

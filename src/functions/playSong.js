@@ -19,7 +19,7 @@ const play = require('play-dl');
 
 module.exports = {
     async playSong(client, interaction, cache, audio) {
-        if ( !audio ) {
+        if (!audio) {
             audio = new Map();
         }
         let serverQueue = cache.get(interaction.guild.id);
@@ -58,29 +58,30 @@ module.exports = {
             connection.destroy();
             serverQueue.delete(interaction.guild.id);
         });
-    
+
         player.on(AudioPlayerStatus.Idle, () => {
             console.log("Audio status is idle");
+            //var serverQueue = cache.get(player.guild.id);
+            console.log(serverQueue.loop);
 
             // Check if loop is set to true or not
-            if (serverQueue.loop = true) {
+            if (serverQueue.loop == true) {
                 // If the loop is true, play next song without shifting
                 if (serverQueue.songs.length > 0) {
                     module.exports.playSong(client, interaction, cache);
                 } else {
                     console.log("No more songs");
                 }
-                return;
-            }
-            
-            // Assuming loop is set to false
-            // Going to next song in queue
-            serverQueue.songs.shift();
-            // Playing the song
-            if (serverQueue.songs.length > 0) {
-                module.exports.playSong(client, interaction, cache);
             } else {
-                console.log("No more songs");
+                // Assuming loop is set to false
+                // Going to next song in queue
+                serverQueue.songs.shift();
+                // Playing the song
+                if (serverQueue.songs.length > 0) {
+                    module.exports.playSong(client, interaction, cache);
+                } else {
+                    console.log("No more songs");
+                }
             }
         });
 
