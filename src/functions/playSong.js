@@ -61,12 +61,22 @@ module.exports = {
     
         player.on(AudioPlayerStatus.Idle, () => {
             console.log("Audio status is idle");
-    
-            console.log("Shifting Song");
+
+            // Check if loop is set to true or not
+            if (serverQueue.loop = true) {
+                // If the loop is true, play next song without shifting
+                if (serverQueue.songs.length > 0) {
+                    module.exports.playSong(client, interaction, cache);
+                } else {
+                    console.log("No more songs");
+                }
+                return;
+            }
+            
+            // Assuming loop is set to false
+            // Going to next song in queue
             serverQueue.songs.shift();
-            console.log("New song is " + serverQueue.songs[0]);
-    
-            console.log(serverQueue.songs);
+            // Playing the song
             if (serverQueue.songs.length > 0) {
                 module.exports.playSong(client, interaction, cache);
             } else {
