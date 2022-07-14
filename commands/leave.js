@@ -14,6 +14,7 @@ module.exports = {
         .setDescription('🎵 Make me leave my current VC'),
 
     async execute(client, interaction, cache) {
+        await interaction.deferReply();
         console.log("Ran " + interaction.commandName + " command");
         const serverQueue = cache.get(interaction.guild.id);
 

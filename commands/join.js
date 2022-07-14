@@ -17,6 +17,7 @@ module.exports = {
         .setDescription('🎵 Join me to your VC'),
 
     async execute(client, interaction, cache) {
+        await interaction.deferReply();
         console.log("Ran " + interaction.commandName + " command");
         const permissions = await interaction.member.voice.channel.permissionsFor(client.user.id);
 
@@ -24,7 +25,7 @@ module.exports = {
             let emb = new MessageEmbed()
                 .setAuthor({ name: "You need to be in a voice channel to run this command", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
                 .setColor(vars.dangerColour)
-            await interaction.reply({ embeds: [emb] })
+            await interaction.editReply({ embeds: [emb] })
             return;
         }
 
@@ -32,7 +33,7 @@ module.exports = {
             const emb = new MessageEmbed()
                 .setAuthor({ name: "I do not have permission to join or speak in this channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
                 .setColor(vars.dangerColour)
-            await interaction.reply({ embeds: [emb] })
+            await interaction.editReply({ embeds: [emb] })
             return;
         }
 
@@ -47,7 +48,7 @@ module.exports = {
                 const emb = new MessageEmbed()
                     .setAuthor({ name: "Joined your current voice channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
                     .setColor(vars.successColour)
-                interaction.reply({ embeds: [emb] })
+                interaction.editReply({ embeds: [emb] })
 
                 // setting the connection to the serverqueue object so we can access it later
                 let serverQueue = cache.get(interaction.guild.id);

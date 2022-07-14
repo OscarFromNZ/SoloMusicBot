@@ -53,10 +53,6 @@ client.on('interactionCreate', async (interaction) => {
 
     } catch (err) {
         if (err) console.log(err);
-        await interaction.reply({
-            content: 'An error was detected, system has shut down temporarily.',
-            ephemeral: true
-        });
     }
 
 });

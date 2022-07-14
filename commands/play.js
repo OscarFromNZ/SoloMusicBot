@@ -28,6 +28,7 @@ module.exports = {
                 .setRequired(true)),
 
     async execute(client, interaction, cache) {
+        await interaction.deferReply();
         console.log("Ran " + interaction.commandName + " command");
         const permissions = interaction.member.voice.channel.permissionsFor(client.user.id);
 
@@ -36,7 +37,7 @@ module.exports = {
             let emb = new MessageEmbed()
                 .setAuthor({ name: "You need to be in a voice channel to run this command", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
                 .setColor(vars.dangerColour)
-            await interaction.reply({ embeds: [emb] })
+            await interaction.editReply({ embeds: [emb] })
             return;
         }
 
@@ -44,7 +45,7 @@ module.exports = {
             const emb = new MessageEmbed()
                 .setAuthor({ name: "I do not have permission to join or speak in this channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
                 .setColor(vars.dangerColour)
-            await interaction.reply({ embeds: [emb] })
+            await interaction.editReply({ embeds: [emb] })
             return;
         }
 
@@ -91,12 +92,11 @@ module.exports = {
         }
         
         let songInfo = serverQueue.songs[0];
-
         const emb = new MessageEmbed()
             .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
             .setColor("#03fc6b")
 
-        await interaction.reply({ embeds: [emb] })
+        await interaction.editReply({ embeds: [emb] });
 
     }
 
