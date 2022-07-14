@@ -23,8 +23,12 @@ const startup = require('./src/startup');
 startup(client)
 
 var cache = new Map();
+var audio = new Map();
 
 client.on('interactionCreate', async (interaction) => {
+    if ( !audio ) {
+        audio = new Map();
+    }
     // if the interaction is a command
     if (interaction.isCommand()) {
 
@@ -50,7 +54,7 @@ client.on('interactionCreate', async (interaction) => {
         }
     
         try {
-            return await command.execute(client, interaction, cache);
+            return await command.execute(client, interaction, cache, audio);
     
         } catch (err) {
             if (err) console.log(err);
@@ -65,7 +69,7 @@ client.on('interactionCreate', async (interaction) => {
 
         const file = require(`./buttons/${buttonID}`);
         console.log("File is " + file);
-        file.execute(client, interaction, cache);
+        file.execute(client, interaction, cache, audio);
 
     }
 

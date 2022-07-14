@@ -30,7 +30,7 @@ module.exports = {
                 .setDescription('YT link, song name, etc')
                 .setRequired(true)),
 
-    async execute(client, interaction, cache) {
+    async execute(client, interaction, cache, audio) {
         await interaction.deferReply();
         console.log("Ran " + interaction.commandName + " command");
         const permissions = interaction.member.voice.channel.permissionsFor(client.user.id);
@@ -51,22 +51,21 @@ module.exports = {
             await interaction.editReply({ embeds: [emb] })
             return;
         }
+
         const serverQueue = cache.get(interaction.guild.id);
+        
+        if (!serverQueue.connection) {
+            let emb = new MessageEmbed()
+                .setAuthor({ name: "Please run the /join command first", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setColor(vars.dangerColour)
+            await interaction.editReply({ embeds: [emb] })
+            return;
+        }
 
         let input = interaction.options.getString('song');
         console.log("Input given is " + input);
         let url;
 
-        if (!serverQueue.connection) {
-            const connection = joinVoiceChannel({
-                guildId: interaction.guild.id,
-                channelId: interaction.member.voice.channel.id,
-                adapterCreator: interaction.guild.voiceAdapterCreator
-            })
-
-            serverQueue.connection = connection;
-            cache.set(interaction.guild.id, connection);
-        }
 
 
         if (urlAPI.isValidHttpUrl(input) == true) {
@@ -108,7 +107,7 @@ module.exports = {
 
             await interaction.editReply({ embeds: [emb, emb1], components: [button, button1] });
             serverQueue.songs.push(songInfo);
-            await playAPI.playSong(client, interaction, cache); // Calling the function to actually play the song
+            await playAPI.playSong(client, interaction, cache, audio); // Calling the function to actually play the song
         } else {
             console.log("Is songs in the queue!");
             const emb = new MessageEmbed()

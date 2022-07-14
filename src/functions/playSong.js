@@ -18,7 +18,10 @@ const { createAudioPlayer, createAudioResource, StreamType, demuxProbe, NoSubscr
 const play = require('play-dl');
 
 module.exports = {
-    async playSong(client, interaction, cache) {
+    async playSong(client, interaction, cache, audio) {
+        if ( !audio ) {
+            audio = new Map();
+        }
         let serverQueue = cache.get(interaction.guild.id);
         let connection = serverQueue.connection;
 
@@ -42,6 +45,10 @@ module.exports = {
 
         player.play(resource);
         console.log("Playing resource via player");
+
+        // 
+        audio.set(interaction.guild.id, player);
+        // 
 
         await connection.subscribe(player);
         console.log("Connection subscribed, playing " + url);
