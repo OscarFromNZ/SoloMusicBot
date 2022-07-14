@@ -17,7 +17,6 @@ const {
 const { createAudioPlayer, createAudioResource, StreamType, demuxProbe, NoSubscriberBehavior, AudioPlayerStatus, VoiceConnectionStatus, getVoiceConnection } = require('@discordjs/voice');
 const play = require('play-dl');
 
-
 module.exports = {
     async playSong(client, interaction, cache) {
         let serverQueue = cache.get(interaction.guild.id);
@@ -60,10 +59,9 @@ module.exports = {
             serverQueue.songs.shift();
             console.log("New song is " + serverQueue.songs[0]);
     
-    
             console.log(serverQueue.songs);
             if (serverQueue.songs.length > 0) {
-                playSong(client, interaction, cache);
+                module.exports.playSong(client, interaction, cache);
             } else {
                 console.log("No more songs");
             }

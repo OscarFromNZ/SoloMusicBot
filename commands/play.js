@@ -57,21 +57,17 @@ module.exports = {
         console.log("Input given is " + input);
         let url;
 
-        if ( !serverQueue.connection ) {
+        if (!serverQueue.connection) {
             const connection = joinVoiceChannel({
-                guildId: guild.id,
-                channelId: channel.id,
-                adapterCreator: guild.voiceAdapterCreator
+                guildId: interaction.guild.id,
+                channelId: interaction.member.voice.channel.id,
+                adapterCreator: interaction.guild.voiceAdapterCreator
             })
 
             serverQueue.connection = connection;
             cache.set(interaction.guild.id, connection);
         }
 
-        let songs = serverQueue.songs;
-        if ( songs.length === 0 ) {
-            console.log("No songs in queue");
-        }
 
         if (urlAPI.isValidHttpUrl(input) == true) {
             console.log("Input given was a YT link");
@@ -79,14 +75,8 @@ module.exports = {
             // getting song URL
             url = interaction.options.getString('song');
 
-            // getting song info
-            let songInfo = await play.video_info(url);
-            serverQueue.songs.push(songInfo);
-
             console.log("URL is " + url);
             cache.set(interaction.guild.id, serverQueue); // Saving data to cache
-
-            await playAPI.playSong(client, interaction, cache); // Calling the function to actually play the song
 
         } else {
             console.log("Input is not a YT link");
@@ -96,23 +86,34 @@ module.exports = {
 
             url = yt_info[0].url;
 
-            // getting song info
-            let songInfo = await play.video_info(url);
-            serverQueue.songs.push(songInfo);
-
             console.log("URL is " + url);
             cache.set(interaction.guild.id, serverQueue); // Saving data to cache
 
-            await playAPI.playSong(client, interaction, cache); // Calling the function to actually play the song
-
         }
-        
-        let songInfo = serverQueue.songs[0];
-        const emb = new MessageEmbed()
-            .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
-            .setColor("#03fc6b")
 
-        await interaction.editReply({ embeds: [emb] });
+        // getting song info
+        let songInfo = await play.video_info(url);
+
+        let songs = serverQueue.songs;
+
+        if (songs.length === 0) {
+            console.log("No songs in queue");
+            const emb = new MessageEmbed()
+                .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
+                .setColor("#03fc6b")
+
+            await interaction.editReply({ embeds: [emb] });
+            serverQueue.songs.push(songInfo);
+            await playAPI.playSong(client, interaction, cache); // Calling the function to actually play the song
+        } else {
+            console.log("Is songs in the queue!");
+            const emb = new MessageEmbed()
+                .setAuthor({ name: "Added: \"" + songInfo.video_details.title + "\" to the queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
+                .setColor("#03fc6b")
+
+            await interaction.editReply({ embeds: [emb] });
+            serverQueue.songs.push(songInfo);
+        }
 
     }
 
