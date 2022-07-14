@@ -25,34 +25,48 @@ startup(client)
 var cache = new Map();
 
 client.on('interactionCreate', async (interaction) => {
-    // if the interaction is not a command, eg: it's a button, return
-    if (!interaction.isCommand) return;
+    // if the interaction is a command
+    if (interaction.isCommand()) {
 
-    const command = client.commands.get(interaction.commandName);
-    const commandName = interaction.commandName;
-
-    if (!command) return;
-
-    // checking if the cmd given is a music command 🎵
-    if (commandName == 'join' || commandName == 'leave' || commandName == 'play') {
-        // checking if a queue exists, if it doesn't, we make a queue
-        let serverQueue = cache.get(interaction.guild.id);
-        if (!serverQueue) {
-            let queue = {
-                vc: undefined,
-                connection: undefined,
-                songs: [],
-                loop: false,
+        const command = client.commands.get(interaction.commandName);
+        const commandName = interaction.commandName;
+    
+        if (!command) return;
+        console.log(command);
+    
+        // checking if the cmd given is a music command 🎵
+        if (commandName == 'join' || commandName == 'leave' || commandName == 'play') {
+            // checking if a queue exists, if it doesn't, we make a queue
+            let serverQueue = cache.get(interaction.guild.id);
+            if (!serverQueue) {
+                let queue = {
+                    vc: undefined,
+                    connection: undefined,
+                    songs: [],
+                    loop: false,
+                }
+                cache.set(interaction.guild.id, queue);
             }
-            cache.set(interaction.guild.id, queue);
         }
-    }
+    
+        try {
+            return await command.execute(client, interaction, cache);
+    
+        } catch (err) {
+            if (err) console.log(err);
+        }
 
-    try {
-        return await command.execute(client, interaction, cache);
+    } else {
 
-    } catch (err) {
-        if (err) console.log(err);
+        console.log("Interaction ran was a button");
+
+        const buttonID = interaction.component.customId;
+        console.log(buttonID);
+
+        const file = require(`./buttons/${buttonID}`);
+        console.log("File is " + file);
+        file.execute(client, interaction, cache);
+
     }
 
 });
