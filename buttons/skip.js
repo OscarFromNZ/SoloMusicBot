@@ -11,22 +11,8 @@ const panelAPI = require('../src/functions/getControlPanel');
 const vars = require('../variables.json');
 
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('skip')
-        .setDescription('🎵 Skip to the next song in the queue!'),
-
     async execute(client, interaction, cache) {
         interaction.deferReply();
-
-        if (!interaction.member.voice.channel.id) {
-            let emb = new MessageEmbed()
-                .setAuthor({ name: "You need to be in a voice channel to run this command", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
-                .setColor(vars.dangerColour)
-            await interaction.editReply({ embeds: [emb] })
-            return;
-        }
-
-        
         let serverQueue = cache.get(interaction.guild.id);
         // skip to the next song in the queue
         serverQueue.songs.shift();

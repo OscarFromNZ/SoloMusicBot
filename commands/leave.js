@@ -21,7 +21,7 @@ module.exports = {
         connection.destroy();
 
         const emb = new MessageEmbed()
-            .setAuthor({ name: "Left the voice channel, run the /join command to rejoin", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
+            .setAuthor({ name: "Left the voice channel, run the /join command to rejoin", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
             .setColor(vars.successColour)
         await interaction.reply({ embeds: [emb] })
     }

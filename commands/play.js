@@ -38,7 +38,7 @@ module.exports = {
         // just some checks
         if (!interaction.member.voice.channel.id) {
             let emb = new MessageEmbed()
-                .setAuthor({ name: "You need to be in a voice channel to run this command", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
+                .setAuthor({ name: "You need to be in a voice channel to run this command", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                 .setColor(vars.dangerColour)
             await interaction.editReply({ embeds: [emb] })
             return;
@@ -46,7 +46,7 @@ module.exports = {
 
         if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
             const emb = new MessageEmbed()
-                .setAuthor({ name: "I do not have permission to join or speak in this channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
+                .setAuthor({ name: "I do not have permission to join or speak in this channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                 .setColor(vars.dangerColour)
             await interaction.editReply({ embeds: [emb] })
             return;
@@ -103,7 +103,7 @@ module.exports = {
         if (songs.length === 0) {
             console.log("No songs in queue");
             const emb = new MessageEmbed()
-                .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
+                .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                 .setColor("#03fc6b")
 
             await interaction.editReply({ embeds: [emb, emb1], components: [button, button1] });
@@ -112,10 +112,10 @@ module.exports = {
         } else {
             console.log("Is songs in the queue!");
             const emb = new MessageEmbed()
-                .setAuthor({ name: "Added: \"" + songInfo.video_details.title + "\" to the queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
+                .setAuthor({ name: "Added: \"" + songInfo.video_details.title + "\" to the queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                 .setColor("#03fc6b")
 
-            await interaction.editReply({ embeds: [emb, emb1], components: [button, button1] });
+            await interaction.editReply({ embeds: [emb] });
             serverQueue.songs.push(songInfo);
         }
 

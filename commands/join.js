@@ -22,7 +22,7 @@ module.exports = {
 
         if (!interaction.member.voice.channel.id) {
             let emb = new MessageEmbed()
-                .setAuthor({ name: "You need to be in a voice channel to run this command", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
+                .setAuthor({ name: "You need to be in a voice channel to run this command", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                 .setColor(vars.dangerColour)
             await interaction.editReply({ embeds: [emb] })
             return;
@@ -31,7 +31,7 @@ module.exports = {
         const permissions = await interaction.member.voice.channel.permissionsFor(client.user.id);
         if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
             const emb = new MessageEmbed()
-                .setAuthor({ name: "I do not have permission to join or speak in this channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
+                .setAuthor({ name: "I do not have permission to join or speak in this channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                 .setColor(vars.dangerColour)
             await interaction.editReply({ embeds: [emb] })
             return;
@@ -46,7 +46,7 @@ module.exports = {
                 })
 
                 const emb = new MessageEmbed()
-                    .setAuthor({ name: "Joined your current voice channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
+                    .setAuthor({ name: "Joined your current voice channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                     .setColor(vars.successColour)
                 interaction.editReply({ embeds: [emb] })
 

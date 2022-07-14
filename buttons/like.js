@@ -1,5 +1,5 @@
 module.exports = {
     async execute(client, interaction, cache) {
-        console.log("🛠️ Sorry, this command is currently under maintenance");
+        interaction.reply( { content: "🛠️ Sorry, this command is currently under maintenance", ephemeral: true } );
     }
 }
