@@ -18,6 +18,7 @@ const play = require('play-dl');
 
 const urlAPI = require('../src/functions/isValidURL');
 const playAPI = require('../src/functions/playSong');
+const panelAPI = require('../src/functions/getControlPanel');
 const vars = require('../variables.json');
 
 module.exports = {
@@ -50,7 +51,6 @@ module.exports = {
             await interaction.editReply({ embeds: [emb] })
             return;
         }
-
         const serverQueue = cache.get(interaction.guild.id);
 
         let input = interaction.options.getString('song');
@@ -93,6 +93,10 @@ module.exports = {
 
         // getting song info
         let songInfo = await play.video_info(url);
+        let controlPanel = await panelAPI.getPanel(client, interaction, cache, songInfo);
+        let emb1 = controlPanel[0];
+        let button = controlPanel[1];
+        let button1 = controlPanel[2];
 
         let songs = serverQueue.songs;
 
@@ -102,7 +106,7 @@ module.exports = {
                 .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
                 .setColor("#03fc6b")
 
-            await interaction.editReply({ embeds: [emb] });
+            await interaction.editReply({ embeds: [emb, emb1], components: [button, button1] });
             serverQueue.songs.push(songInfo);
             await playAPI.playSong(client, interaction, cache); // Calling the function to actually play the song
         } else {
@@ -111,7 +115,7 @@ module.exports = {
                 .setAuthor({ name: "Added: \"" + songInfo.video_details.title + "\" to the queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/WtsHhYqXYZ' })
                 .setColor("#03fc6b")
 
-            await interaction.editReply({ embeds: [emb] });
+            await interaction.editReply({ embeds: [emb, emb1], components: [button, button1] });
             serverQueue.songs.push(songInfo);
         }
 
