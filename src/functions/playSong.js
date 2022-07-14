@@ -47,6 +47,28 @@ module.exports = {
         await connection.subscribe(player);
         console.log("Connection subscribed, playing " + url);
 
+        player.on('channelEmpty', () => {
+            console.log("Channel Empty --> ");
+            connection.destroy();
+            serverQueue.delete(interaction.guild.id);
+        });
+    
+        player.on(AudioPlayerStatus.Idle, () => {
+            console.log("Audio status is idle");
+    
+            console.log("Shifting Song");
+            serverQueue.songs.shift();
+            console.log("New song is " + serverQueue.songs[0]);
+    
+    
+            console.log(serverQueue.songs);
+            if (serverQueue.songs.length > 0) {
+                playSong(client, interaction, cache);
+            } else {
+                console.log("No more songs");
+            }
+        });
+
         player.on('error', (error) => console.error(error));
 
     }

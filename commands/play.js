@@ -12,6 +12,8 @@ const {
     MessageEmbed,
 } = require('discord.js');
 
+const { joinVoiceChannel } = require('@discordjs/voice');
+
 const play = require('play-dl');
 
 const urlAPI = require('../src/functions/isValidURL');
@@ -55,7 +57,21 @@ module.exports = {
         console.log("Input given is " + input);
         let url;
 
+        if ( !serverQueue.connection ) {
+            const connection = joinVoiceChannel({
+                guildId: guild.id,
+                channelId: channel.id,
+                adapterCreator: guild.voiceAdapterCreator
+            })
 
+            serverQueue.connection = connection;
+            cache.set(interaction.guild.id, connection);
+        }
+
+        let songs = serverQueue.songs;
+        if ( songs.length === 0 ) {
+            console.log("No songs in queue");
+        }
 
         if (urlAPI.isValidHttpUrl(input) == true) {
             console.log("Input given was a YT link");
