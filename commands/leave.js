@@ -20,8 +20,18 @@ module.exports = {
         const connection = serverQueue.connection;
         connection.destroy();
 
+        serverQueue = {
+            vc: undefined,
+            connection: undefined,
+            songs: [],
+            loop: false,
+        }
+        
+        cache.set(interaction.guild.id, serverQueue);
+
+
         const emb = new MessageEmbed()
-            .setAuthor({ name: "Left the voice channel, run the /join command to rejoin", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+            .setAuthor({ name: "Left the voice channel and cleared the queue, run the /join command to rejoin", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
             .setColor(vars.successColour)
         await interaction.reply({ embeds: [emb] })
     }
