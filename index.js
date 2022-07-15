@@ -60,7 +60,7 @@ client.on('interactionCreate', async (interaction) => {
             if (err) console.log(err);
         }
 
-    } else {
+    } else if (interaction.isButton()) {
 
         console.log("Interaction ran was a button");
 
@@ -71,6 +71,24 @@ client.on('interactionCreate', async (interaction) => {
         console.log("File is " + file);
         file.execute(client, interaction, cache, audio);
 
+    } else if (interaction.isAutocomplete()) {
+        let serverQueue = cache.get(interaction.guild.id);
+        let songs = serverQueue.songs;
+        console.log(songs[0].video_details.title);
+
+        const choices = [];
+        for (let i = 0; i < songs; i++) {
+            console.log(i);
+            choices.push(i.video_details.title);
+        }
+
+        console.log("Choices are " + choices);
+
+        const focusedValue = interaction.options.getFocused();
+		const filtered = choices.filter(choice => choice.startsWith(focusedValue));
+		await interaction.respond(
+			filtered.map(choice => ({ name: choice, value: choice })),
+		);
     }
 
 });

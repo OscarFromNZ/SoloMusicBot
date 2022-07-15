@@ -50,7 +50,7 @@ module.exports = {
             .addFields(
                 { name: '<:playingJamie:985033887937867819> Current Song:', value: "`[" + songInfo.video_details.title + "](" + songInfo.video_details.url + ")`", inline: true },
                 { name: '<:membersJamie:985035072577081344> Requested By:', value: "<@" + interaction.user.id + ">", inline: true },
-                { name: '<:paletteJamie:985038222084153354> Artist:', value: songInfo.video_details.channel.name + "s", inline: true },
+                { name: '<:paletteJamie:985038222084153354> Artist:', value: songInfo.video_details.channel.name, inline: true },
                 //{ name: '\u200B', value: '\u200B' },
             );
 

@@ -33,7 +33,6 @@ module.exports = {
     async execute(client, interaction, cache, audio) {
         await interaction.deferReply();
         console.log("Ran " + interaction.commandName + " command");
-        const permissions = interaction.member.voice.channel.permissionsFor(client.user.id);
 
         // just some checks
         if (!interaction.member.voice.channel.id) {
@@ -44,6 +43,7 @@ module.exports = {
             return;
         }
 
+        const permissions = interaction.member.voice.channel.permissionsFor(client.user.id);
         if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
             const emb = new MessageEmbed()
                 .setAuthor({ name: "I do not have permission to join or speak in this channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
@@ -53,7 +53,7 @@ module.exports = {
         }
 
         const serverQueue = cache.get(interaction.guild.id);
-        
+
         if (!serverQueue.connection) {
             let emb = new MessageEmbed()
                 .setAuthor({ name: "Please run the /join command first", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
