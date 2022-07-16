@@ -42,14 +42,14 @@ module.exports = {
 
     async execute(client, interaction, cache, audio) {
         console.log("Ran " + interaction.commandName + " command");
-        
+
         if (interaction.options.getSubcommand() === 'view') {
             const emb = new MessageEmbed()
-                .setColor('2f3136');
+                .setColor(vars.successColour);
         }
         if (interaction.options.getSubcommand() === 'remove') {
             const emb = new MessageEmbed()
-                .setColor('2f3136');
+                .setColor(vars.successColour);
 
             const serverQueue = cache.get(interaction.guild.id);
             const songs = serverQueue.songs;
@@ -61,9 +61,13 @@ module.exports = {
                     if( i === 0 ) {
                         await playAPI.playSong(client, interaction, cache, audio);
                     }
-                    return;
+                    serverQueue.songs = songs;
+                    cache.set(interaction.guild.id, serverQueue);
                 }
             }
+
+            emb.setAuthor({ name: "I have removed " + song + " from the queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+            interaction.reply( { embeds: [emb] } );
         }
     }
 
