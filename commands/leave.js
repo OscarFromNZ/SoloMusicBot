@@ -15,7 +15,7 @@ module.exports = {
 
     async execute(client, interaction, cache) {
         console.log("Ran " + interaction.commandName + " command");
-        const serverQueue = cache.get(interaction.guild.id);
+        var serverQueue = cache.get(interaction.guild.id);
 
         const connection = serverQueue.connection;
         connection.destroy();
@@ -26,7 +26,7 @@ module.exports = {
             songs: [],
             loop: false,
         }
-        
+
         cache.set(interaction.guild.id, serverQueue);
 
 

@@ -74,12 +74,12 @@ client.on('interactionCreate', async (interaction) => {
     } else if (interaction.isAutocomplete()) {
         let serverQueue = cache.get(interaction.guild.id);
         let songs = serverQueue.songs;
-        console.log(songs[0].video_details.title);
+        //console.log(songs);
 
         const choices = [];
-        for (let i = 0; i < songs; i++) {
-            console.log(i);
-            choices.push(i.video_details.title);
+        for (let i = 0; i < songs.length; i++) {
+            console.log("Song is " + songs[i]);
+            choices.push(songs[i].video_details.title);
         }
 
         console.log("Choices are " + choices);

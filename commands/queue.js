@@ -14,6 +14,7 @@ const {
 
 const vars = require('../variables.json');
 const songsAPI = require('../src/functions/getSongs');
+const playAPI = require('../src/functions/playSong');
 
 module.exports = {
 
@@ -32,14 +33,16 @@ module.exports = {
                 .setDescription("🎵 Remove a song from the current song queue!")
                 .addStringOption((option) =>
                     option
-                        .setName('options')
-                        .setDescription('Select an option.')
+                        .setName('song')
+                        .setDescription('The song to remove from the queue')
                         .setRequired(true)
                         .setAutocomplete(true))
                 ),
         
 
-    async execute(client, interaction, cache) {
+    async execute(client, interaction, cache, audio) {
+        console.log("Ran " + interaction.commandName + " command");
+        
         if (interaction.options.getSubcommand() === 'view') {
             const emb = new MessageEmbed()
                 .setColor('2f3136');
@@ -47,6 +50,20 @@ module.exports = {
         if (interaction.options.getSubcommand() === 'remove') {
             const emb = new MessageEmbed()
                 .setColor('2f3136');
+
+            const serverQueue = cache.get(interaction.guild.id);
+            const songs = serverQueue.songs;
+            const song = interaction.options.getString("song");
+
+            for (let i = 0; i < songs.length; i++) {
+                if (songs[i].video_details.title === song) {
+                    songs.splice(i, 1);
+                    if( i === 0 ) {
+                        await playAPI.playSong(client, interaction, cache, audio);
+                    }
+                    return;
+                }
+            }
         }
     }
 
