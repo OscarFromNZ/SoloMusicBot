@@ -24,8 +24,7 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('view')
-                .setDescription('🎵 View the current song queue!')
-                .addUserOption(option => option.setName('target').setDescription('The user')))
+                .setDescription('🎵 View the current song queue!'))
 
         .addSubcommand(subcommand =>
             subcommand
@@ -37,15 +36,29 @@ module.exports = {
                         .setDescription('The song to remove from the queue')
                         .setRequired(true)
                         .setAutocomplete(true))
-                ),
-        
+        ),
+
 
     async execute(client, interaction, cache, audio) {
         console.log("Ran " + interaction.commandName + " command");
 
         if (interaction.options.getSubcommand() === 'view') {
+            const serverQueue = cache.get(interaction.guild.id);
+            const songs = serverQueue.songs;
+
+            let description = "";
+
+            for (let i = 0; i < songs.length; i++) {
+                description = description + `\`${i}.\` **${songs[i].video_details.title}**\n`;
+            }
+            console.log(description);
+
             const emb = new MessageEmbed()
-                .setColor(vars.successColour);
+                .setColor('2f3136')
+                .setDescription(description)
+
+            interaction.reply({ embeds: [emb] });
+
         }
         if (interaction.options.getSubcommand() === 'remove') {
             const emb = new MessageEmbed()
@@ -58,7 +71,7 @@ module.exports = {
             for (let i = 0; i < songs.length; i++) {
                 if (songs[i].video_details.title === song) {
                     songs.splice(i, 1);
-                    if( i === 0 ) {
+                    if (i === 0) {
                         await playAPI.playSong(client, interaction, cache, audio);
                     }
                     serverQueue.songs = songs;
@@ -67,7 +80,7 @@ module.exports = {
             }
 
             emb.setAuthor({ name: "I have removed " + song + " from the queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
-            interaction.reply( { embeds: [emb] } );
+            interaction.reply({ embeds: [emb] });
         }
     }
 
