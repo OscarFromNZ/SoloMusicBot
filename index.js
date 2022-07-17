@@ -48,6 +48,7 @@ client.on('interactionCreate', async (interaction) => {
                     connection: undefined,
                     songs: [],
                     loop: false,
+                    autoplay: true
                 }
                 cache.set(interaction.guild.id, queue);
             }
