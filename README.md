@@ -8,13 +8,13 @@ I have a few commands that you'll see in the command folder as well as some butt
 ### Main Commands !
 
 ```
-/play
-/pause
-/unpause
-/queue
-/join
-/help
-/skip
+/play - Adds the song given to the queue
+/pause - Pauses the current song playing
+/unpause - Unpauses the current song
+/queue - Manage/view the current song queue
+/join - Join the bot to your discord voice channel
+/help - Need help with the bot? Run this command!
+/skip - Skip to the next song in the queue
 ```
 
 ## Help
