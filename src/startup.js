@@ -19,7 +19,6 @@ module.exports = (client) => {
         const command = require(`../commands/${file}`);
         commands.push(command.data.toJSON());
         client.commands.set(command.data.name, command);
-        console.log("Successfully registered " + command.name);
     }
 
     // When the client is ready, this only runs once
