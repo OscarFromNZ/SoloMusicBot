@@ -3,7 +3,7 @@
     This is where we do all of that backend stuff
     Setting a player, subscribing the connection, **playing the song**
 
-    ++ need to add events
+   We also handle autoplay stuff here just to make things more confusing ;)
 */
 
 const {
