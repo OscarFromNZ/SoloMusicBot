@@ -14,8 +14,17 @@ module.exports = {
         interaction.deferReply();
 
         let serverQueue = cache.get(interaction.guild.id);
-        // This is actually the same as the songInfo object as declared belows
+        let songs = serverQueue.songs;
         let song = serverQueue.songs[0];
+
+        if (songs.length < 2) {
+            const emb = new MessageEmbed()
+                .setAuthor({ name: "There are not enough songs in the queue to run this command!", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setColor(vars.dangerColour)
+
+            await interaction.editReply({ embeds: [emb] });
+            return;
+        }
 
         // skip to the next song in the queue
         serverQueue.songs.shift();
@@ -41,7 +50,7 @@ module.exports = {
             // Autoplay
             serverQueue.songs.push(songInfo);
             serverQueue.songs.push(songInfo1);
-            await playAPI.playSong(client, interaction, cache); 
+            await playAPI.playSong(client, interaction, cache);
         }
         // getting song info
         let songInfo = serverQueue.songs[0];
