@@ -24,8 +24,8 @@ If you notice any problems with the bot, feel free to contact me and explain the
 
 ## License
 
-Yeah nah there aren't any licenses for this bot but please don't self host it! ❤️
+Yeah nah there aren't any *legal* licenses for this bot but please don't self host it! ❤️
 
 ## Acknowledgments
 
-My dad helped me :)
+My dad helped me with a couple errors :)
