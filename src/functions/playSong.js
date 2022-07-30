@@ -29,7 +29,6 @@ module.exports = {
 
         let song = serverQueue.songs[0];
         let url = song.video_details.url;
-        console.log(song);
 
         let player = createAudioPlayer({
             behaviors: {
@@ -98,7 +97,7 @@ module.exports = {
                         .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                         .setColor("#03fc6b")
 
-                    await interaction.editReply({ embeds: [emb, emb1], components: [button, button1], content: "🎶 Since `autoplay` is toggled to **'on'** in this guild, I am now playing **" + songInfo.video_details.title + "**\nMy autoplay formula can be quite bad, run `/autoplay off` to disable autoplay" });
+                    await interaction.channel.send({ embeds: [emb, emb1], components: [button, button1], content: "🎶 Since `autoplay` is toggled to **'on'** in this guild, I am now playing **" + songInfo.video_details.title + "**\nMy autoplay formula can be quite bad, run `/autoplay off` to disable autoplay" });
 
                     // Autoplay
                     serverQueue.songs.push(songInfo);
