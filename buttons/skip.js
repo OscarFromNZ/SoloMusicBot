@@ -8,6 +8,7 @@ const panelAPI = require('../src/functions/getControlPanel');
 const vars = require('../variables.json');
 
 const play = require('play-dl');
+const autoplay = require('../commands/autoplay');
 
 module.exports = {
     async execute(client, interaction, cache) {
@@ -17,7 +18,11 @@ module.exports = {
         let songs = serverQueue.songs;
         let song = serverQueue.songs[0];
 
-        if (songs.length < 2) {
+        console.log(songs.length);
+        console.log(autoplay);
+
+        if (songs.length < 2 && autoplay == false) {
+            console.log("Got here :))");
             const emb = new MessageEmbed()
                 .setAuthor({ name: "There are not enough songs in the queue to run this command!", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                 .setColor(vars.dangerColour)
