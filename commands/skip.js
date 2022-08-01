@@ -20,15 +20,6 @@ module.exports = {
     async execute(client, interaction, cache) {
         interaction.deferReply();
 
-        if (!interaction.member.voice.channel) {
-            let emb = new MessageEmbed()
-                .setAuthor({ name: "You need to be in a voice channel to run this command", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
-                .setColor(vars.dangerColour)
-            await interaction.editReply({ embeds: [emb] })
-            return;
-        }
-
-
         let serverQueue = cache.get(interaction.guild.id);
 
         // This is actually the same as the songInfo object as declared belows

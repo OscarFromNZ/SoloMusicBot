@@ -13,6 +13,8 @@ const client = new Client({
 const fs = require('node:fs');
 const path = require('node:path');
 
+const vars = require('./variables.json');
+
 const dotenv = require('dotenv');
 // import config IDs
 dotenv.config()
@@ -53,7 +55,7 @@ client.on('interactionCreate', async (interaction) => {
         console.log(command);
 
         // checking if the cmd given is a music command 🎵
-        if (commandName == 'join' || commandName == 'leave' || commandName == 'play' || commandName == 'skip' || commandName == 'loop') {
+        if (commandName == 'join' || commandName == 'leave' || commandName == 'play' || commandName == 'skip' || commandName == 'loop' || commandName == 'queue' || commandName == 'nowplaying' || commandName == 'shuffle' || commandName == 'pause' || commandName == 'unpause' || commandName == 'lyrics') {
             // checking if a queue exists, if it doesn't, we make a queue
             let serverQueue = cache.get(interaction.guild.id);
             if (!serverQueue) {
@@ -65,6 +67,14 @@ client.on('interactionCreate', async (interaction) => {
                     autoplay: true
                 }
                 cache.set(interaction.guild.id, queue);
+            }
+
+            if (!interaction.member.voice.channel) {
+                let emb = new MessageEmbed()
+                    .setAuthor({ name: "You need to be in a voice channel to run this command", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                    .setColor(vars.dangerColour)
+                await interaction.reply({ embeds: [emb] })
+                return;
             }
         }
 

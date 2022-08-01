@@ -42,17 +42,22 @@ module.exports = {
     async execute(client, interaction, cache, audio) {
         console.log("Ran " + interaction.commandName + " command");
 
-        if (!interaction.member.voice.channel) {
-            let emb1 = new MessageEmbed()
-                .setAuthor({ name: "You need to be in a voice channel to run this command", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
-                .setColor(vars.dangerColour)
-            await interaction.editReply({ embeds: [emb1], ephemeral: true })
-            return;
-        }
-
         if (interaction.options.getSubcommand() === 'view') {
             const serverQueue = cache.get(interaction.guild.id);
             const songs = serverQueue.songs;
+            console.log(songs);
+
+            if (songs.length === 0) {
+                let emb3 = new MessageEmbed()
+                    .setAuthor({ name: "There are no songs in the queue!", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                    .setColor(vars.dangerColour)
+                await interaction.reply({ embeds: [emb3] });
+                return;
+            }
+
+            let emb2 = new MessageEmbed()
+                .setAuthor({ name: "Here is the current server queue:", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setColor(vars.successColour)
 
             let description = "";
 
@@ -65,7 +70,7 @@ module.exports = {
                 .setColor('2f3136')
                 .setDescription(description)
 
-            interaction.reply({ embeds: [emb] });
+            await interaction.reply({ embeds: [emb2, emb] });
 
         }
         if (interaction.options.getSubcommand() === 'remove') {
@@ -88,7 +93,7 @@ module.exports = {
             }
 
             emb.setAuthor({ name: "I have removed " + song + " from the queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
-            interaction.reply({ embeds: [emb] });
+            await interaction.reply({ embeds: [emb] });
         }
     }
 

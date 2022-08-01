@@ -20,14 +20,6 @@ module.exports = {
         await interaction.deferReply();
         console.log("Ran " + interaction.commandName + " command");
 
-        if (!interaction.member.voice.channel) {
-            let emb = new MessageEmbed()
-                .setAuthor({ name: "You need to be in a voice channel to run this command", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
-                .setColor(vars.dangerColour)
-            await interaction.editReply({ embeds: [emb], ephemeral: true })
-            return;
-        }
-
         const permissions = await interaction.member.voice.channel.permissionsFor(client.user.id);
         if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
             const emb = new MessageEmbed()
