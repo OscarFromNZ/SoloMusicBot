@@ -32,7 +32,7 @@ module.exports = {
             .setColor('2f3136')
             .setDescription(description)
 
-        await interaction.reply({ embeds: [emb] });
+        await interaction.reply({ embeds: [emb], ephemeral: true });
 
     }
 }
