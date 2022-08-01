@@ -86,7 +86,7 @@ module.exports = {
                     if (serverQueue.autoplay == false) return console.log("Autoplay is off");
                     // If autoplay is on -->
                     let songInfo = await play.video_info(song.related_videos[0]);
-                    let songInfo1 = await play.video_info(song.related_videos[1]);
+                    //let songInfo1 = await play.video_info(song.related_videos[1]);
 
                     let controlPanel = await panelAPI.getPanel(client, interaction, cache, songInfo);
                     let emb1 = controlPanel[0];
