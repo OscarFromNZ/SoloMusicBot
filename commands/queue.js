@@ -42,6 +42,14 @@ module.exports = {
     async execute(client, interaction, cache, audio) {
         console.log("Ran " + interaction.commandName + " command");
 
+        if (!interaction.member.voice.channel) {
+            let emb1 = new MessageEmbed()
+                .setAuthor({ name: "You need to be in a voice channel to run this command", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setColor(vars.dangerColour)
+            await interaction.editReply({ embeds: [emb1], ephemeral: true })
+            return;
+        }
+
         if (interaction.options.getSubcommand() === 'view') {
             const serverQueue = cache.get(interaction.guild.id);
             const songs = serverQueue.songs;

@@ -20,11 +20,11 @@ module.exports = {
         await interaction.deferReply();
         console.log("Ran " + interaction.commandName + " command");
 
-        if (!interaction.member.voice.channel.id) {
+        if (!interaction.member.voice.channel) {
             let emb = new MessageEmbed()
                 .setAuthor({ name: "You need to be in a voice channel to run this command", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                 .setColor(vars.dangerColour)
-            await interaction.editReply({ embeds: [emb] })
+            await interaction.editReply({ embeds: [emb], ephemeral: true })
             return;
         }
 

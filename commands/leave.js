@@ -33,7 +33,7 @@ module.exports = {
         const emb = new MessageEmbed()
             .setAuthor({ name: "Left the voice channel and cleared the queue, run the /join command to rejoin", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
             .setColor(vars.successColour)
-        await interaction.reply({ embeds: [emb] })
+        await interaction.reply({ embeds: [emb] });
     }
 
 }
