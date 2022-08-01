@@ -10,6 +10,7 @@ const fs = require('fs')
 
 module.exports = (client) => {
 
+    // Command handling
     const commands = [];
     const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
     // Creating a collection for commands in client
