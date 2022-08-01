@@ -10,8 +10,8 @@ const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES]
 });
 
-// we require play-dl to get ++ stream music from YouTube
-const play = require('play-dl');
+const fs = require('node:fs');
+const path = require('node:path');
 
 const dotenv = require('dotenv');
 // import config IDs
@@ -25,8 +25,22 @@ startup(client)
 var cache = new Map();
 var audio = new Map();
 
+// Event handling
+const eventsPath = path.join(__dirname, 'events');
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+
+for (const file of eventFiles) {
+    const filePath = path.join(eventsPath, file);
+    const event = require(filePath);
+    if (event.once) {
+        client.once(event.name, (...args) => event.execute(...args));
+    } else {
+        client.on(event.name, (...args) => event.execute(...args));
+    }
+}
+
 client.on('interactionCreate', async (interaction) => {
-    if ( !audio ) {
+    if (!audio) {
         audio = new Map();
     }
     // if the interaction is a command
@@ -34,10 +48,10 @@ client.on('interactionCreate', async (interaction) => {
 
         const command = client.commands.get(interaction.commandName);
         const commandName = interaction.commandName;
-    
+
         if (!command) return;
         console.log(command);
-    
+
         // checking if the cmd given is a music command 🎵
         if (commandName == 'join' || commandName == 'leave' || commandName == 'play' || commandName == 'skip' || commandName == 'loop') {
             // checking if a queue exists, if it doesn't, we make a queue
@@ -53,10 +67,10 @@ client.on('interactionCreate', async (interaction) => {
                 cache.set(interaction.guild.id, queue);
             }
         }
-    
+
         try {
             return await command.execute(client, interaction, cache, audio);
-    
+
         } catch (err) {
             if (err) console.log(err);
         }
@@ -86,10 +100,10 @@ client.on('interactionCreate', async (interaction) => {
         console.log("Choices are " + choices);
 
         const focusedValue = interaction.options.getFocused();
-		const filtered = choices.filter(choice => choice.startsWith(focusedValue));
-		await interaction.respond(
-			filtered.map(choice => ({ name: choice, value: choice })),
-		);
+        const filtered = choices.filter(choice => choice.startsWith(focusedValue));
+        await interaction.respond(
+            filtered.map(choice => ({ name: choice, value: choice })),
+        );
     }
 
 });
