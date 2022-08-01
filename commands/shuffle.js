@@ -26,6 +26,7 @@ module.exports = {
 
         let player = audio.get(interaction.guild.id);
         await player.pause();
+
         // Getting songs/queue
         const serverQueue = cache.get(interaction.guild.id);
         const songs = serverQueue.songs;
@@ -36,14 +37,14 @@ module.exports = {
             [songs[i], songs[j]] = [songs[j], songs[i]];
         }
 
-        await player.unpause();
-        await playAPI.playSong(client, interaction, cache, audio);
-
+        // Sending messsage
         let emb = new MessageEmbed()
             .setAuthor({ name: "I have shuffled the queue, now playing \"" + songs[0].video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
             .setColor(vars.successColour)
-        await interaction.reply({ embeds: [emb] })
-        return;
+        await interaction.reply({ embeds: [emb] });
+
+        await player.unpause();
+        await playAPI.playSong(client, interaction, cache, audio);
     }
 
 }
