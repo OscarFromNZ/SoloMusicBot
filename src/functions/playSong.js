@@ -101,7 +101,6 @@ module.exports = {
 
                     // Autoplay
                     serverQueue.songs.push(songInfo);
-                    serverQueue.songs.push(songInfo1);
                     module.exports.playSong(client, interaction, cache);
                 }
             }
