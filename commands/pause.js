@@ -17,8 +17,12 @@ module.exports = {
         console.log("Ran " + interaction.commandName + " command");
         const serverQueue = cache.get(interaction.guild.id);
 
-        let player = audio.get(interaction.guild.id);
-        player.pause();
+        try {
+            let player = audio.get(interaction.guild.id);
+            player.pause();
+        } catch (err) {
+            console.log(err)
+        }
 
         const emb = new MessageEmbed()
             .setAuthor({ name: "Paused the song, to unpause, run /unpause", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
