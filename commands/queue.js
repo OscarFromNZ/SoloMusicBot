@@ -9,7 +9,7 @@ const {
 } = require('@discordjs/builders');
 
 const {
-    MessageEmbed,
+    MessageEmbed, CommandInteractionOptionResolver,
 } = require('discord.js');
 
 const vars = require('../variables.json');
@@ -56,7 +56,7 @@ module.exports = {
             }
 
             let emb2 = new MessageEmbed()
-                .setAuthor({ name: "Here is the current server queue:", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setAuthor({ name: "Here is the current server queue for " + interaction.guild.name, iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                 .setColor(vars.successColour)
 
             let description = "";
