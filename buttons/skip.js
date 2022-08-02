@@ -8,7 +8,7 @@ const panelAPI = require('../src/functions/getControlPanel');
 const vars = require('../variables.json');
 
 const play = require('play-dl');
-const autoplay = require('../commands/autoplay');
+const autoplay = require('../commands/Music/autoplay');
 
 module.exports = {
     async execute(client, interaction, cache) {

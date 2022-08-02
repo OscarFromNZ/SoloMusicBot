@@ -6,12 +6,12 @@ const {
     MessageEmbed,
 } = require('discord.js');
 
-const vars = require('../variables.json');
+const vars = require('../../variables.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('unpause')
-        .setDescription('🎵 Unpause the current song'),
+        .setName('pause')
+        .setDescription('🎵 Pause the current song'),
 
     async execute(client, interaction, cache, audio) {
         console.log("Ran " + interaction.commandName + " command");
@@ -19,15 +19,15 @@ module.exports = {
 
         try {
             let player = audio.get(interaction.guild.id);
-            player.unpause();
+            player.pause();
         } catch (err) {
             console.log(err)
         }
 
         const emb = new MessageEmbed()
-            .setAuthor({ name: "Unpaused the song, resuming...", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+            .setAuthor({ name: "Paused the song, to unpause, run /unpause", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
             .setColor(vars.successColour)
-        await interaction.reply({ embeds: [emb] })
+        await interaction.reply({ embeds: [emb] });
     }
 
 }

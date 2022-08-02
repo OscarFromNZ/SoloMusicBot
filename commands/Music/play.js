@@ -16,10 +16,10 @@ const { joinVoiceChannel } = require('@discordjs/voice');
 
 const play = require('play-dl');
 
-const urlAPI = require('../src/functions/isValidURL');
-const playAPI = require('../src/functions/playSong');
-const panelAPI = require('../src/functions/getControlPanel');
-const vars = require('../variables.json');
+const urlAPI = require('../../src/functions/isValidURL');
+const playAPI = require('../../src/functions/playSong');
+const panelAPI = require('../../src/functions/getControlPanel');
+const vars = require('../../variables.json');
 
 module.exports = {
     data: new SlashCommandBuilder()

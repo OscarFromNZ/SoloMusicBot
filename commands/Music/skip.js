@@ -6,9 +6,9 @@ const {
     MessageEmbed,
 } = require('discord.js');
 
-const playAPI = require('../src/functions/playSong');
-const panelAPI = require('../src/functions/getControlPanel');
-const vars = require('../variables.json');
+const playAPI = require('../../src/functions/playSong');
+const panelAPI = require('../../src/functions/getControlPanel');
+const vars = require('../../variables.json');
 
 const play = require('play-dl');
 

@@ -6,8 +6,8 @@ const {
     MessageEmbed,
 } = require('discord.js');
 
-const playAPI = require('../src/functions/playSong');
-const vars = require('../variables.json');
+const playAPI = require('../../src/functions/playSong');
+const vars = require('../../variables.json');
 
 module.exports = {
     data: new SlashCommandBuilder()

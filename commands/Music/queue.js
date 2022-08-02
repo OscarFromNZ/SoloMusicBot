@@ -12,9 +12,9 @@ const {
     MessageEmbed, CommandInteractionOptionResolver,
 } = require('discord.js');
 
-const vars = require('../variables.json');
-const songsAPI = require('../src/functions/getSongs');
-const playAPI = require('../src/functions/playSong');
+const vars = require('../../variables.json');
+const songsAPI = require('../../src/functions/getSongs');
+const playAPI = require('../../src/functions/playSong');
 
 module.exports = {
 
