@@ -30,7 +30,6 @@ module.exports = {
 
         cache.set(interaction.guild.id, serverQueue);
 
-
         const emb = new MessageEmbed()
             .setAuthor({ name: "Disconnected from the voice channel and cleared the queue, run /join to rejoin", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
             .setColor(vars.successColour)
