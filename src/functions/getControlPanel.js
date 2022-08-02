@@ -48,7 +48,7 @@ module.exports = {
             .setColor("2f3136")
             .setImage("https://media.discordapp.net/attachments/813443732367999018/985017368323440650/invis_1.png")
             .addFields(
-                { name: '<:playingJamie:985033887937867819> Current Song:', value: "`[" + songInfo.video_details.title + "](" + songInfo.video_details.url + ")`", inline: true },
+                { name: '<:playingJamie:985033887937867819> Current Song:', value: "[" + songInfo.video_details.title + "](" + songInfo.video_details.url + ")", inline: true },
                 { name: '<:membersJamie:985035072577081344> Requested By:', value: "<@" + interaction.user.id + ">", inline: true },
                 { name: '<:paletteJamie:985038222084153354> Artist:', value: songInfo.video_details.channel.name, inline: true },
                 //{ name: '\u200B', value: '\u200B' },
