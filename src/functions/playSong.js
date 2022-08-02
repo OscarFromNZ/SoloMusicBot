@@ -34,7 +34,7 @@ module.exports = {
             behaviors: {
                 noSubscriber: NoSubscriberBehavior.Play
             }
-        });
+        }); 
         
         audio.set(interaction.guild.id, player);
         
@@ -53,12 +53,6 @@ module.exports = {
 
         await connection.subscribe(player);
         console.log("Connection subscribed, playing " + url);
-
-        player.on('channelEmpty', () => {
-            console.log("Channel Empty --> ");
-            connection.destroy();
-            serverQueue.delete(interaction.guild.id);
-        });
 
         player.on(AudioPlayerStatus.Idle, async () => {
             console.log("Audio status is idle");
@@ -107,7 +101,6 @@ module.exports = {
         });
 
         player.on('error', (error) => console.error(error));
-
     }
 }
 

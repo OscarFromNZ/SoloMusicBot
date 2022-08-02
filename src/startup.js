@@ -7,6 +7,8 @@ const CLIENT_ID = process.env.CLIENT_ID
 const GUILD_ID = process.env.GUILD_ID
 
 const fs = require('fs')
+//const fs = require('node:fs');
+const path = require('node:path');
 
 module.exports = (client) => {
 
@@ -20,6 +22,18 @@ module.exports = (client) => {
         const command = require(`../commands/${file}`);
         commands.push(command.data.toJSON());
         client.commands.set(command.data.name, command);
+    }
+
+    const eventsPath = path.join(__dirname, '../events');
+    const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+
+    for (const file of eventFiles) {
+        const event = require(`../events/${file}`);
+        if (event.once) {
+            client.once(event.name, (...args) => event.execute(...args));
+        } else {
+            client.on(event.name, (...args) => event.execute(...args));
+        }
     }
 
     // When the client is ready, this only runs once
