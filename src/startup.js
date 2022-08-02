@@ -9,17 +9,24 @@ const GUILD_ID = process.env.GUILD_ID
 const fs = require('fs')
 //const fs = require('node:fs');
 const path = require('node:path');
+const { dirname } = require('path');
 
 module.exports = (client) => {
 
     // Command handling
-    const commands = [];
-    const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-    // Creating a collection for commands in client
+    const commands = [];    // Creating a collection for commands in client
     client.commands = new Collection();
 
-    for (const file of commandFiles) {
-        const command = require(`../commands/${file}`);
+    const musicFiles = fs.readdirSync('./commands/Music').filter(file => file.endsWith('.js'));
+    for (const file of musicFiles) {
+        const command = require(`../commands/Music/${file}`);
+        commands.push(command.data.toJSON());
+        client.commands.set(command.data.name, command);
+    }
+
+    const miscFiles = fs.readdirSync('./commands/Misc').filter(file => file.endsWith('.js'));
+    for (const file of miscFiles) {
+        const command = require(`../commands/Misc/${file}`);
         commands.push(command.data.toJSON());
         client.commands.set(command.data.name, command);
     }
