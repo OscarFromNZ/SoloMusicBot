@@ -35,9 +35,9 @@ module.exports = {
                 noSubscriber: NoSubscriberBehavior.Play
             }
         });
-        // 
+        
         audio.set(interaction.guild.id, player);
-        // 
+        
         console.log("Player initialized and ready");
 
         let source = await play.stream(url);
