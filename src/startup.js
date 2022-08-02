@@ -31,6 +31,8 @@ module.exports = (client) => {
         client.commands.set(command.data.name, command);
     }
 
+
+    // Event handling
     const eventsPath = path.join(__dirname, '../events');
     const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
