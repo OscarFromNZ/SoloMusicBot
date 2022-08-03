@@ -17,6 +17,7 @@ module.exports = (client) => {
     const commands = [];    // Creating a collection for commands in client
     client.commands = new Collection();
 
+    /*
     const musicFiles = fs.readdirSync('./commands/Music').filter(file => file.endsWith('.js'));
     for (const file of musicFiles) {
         const command = require(`../commands/Music/${file}`);
@@ -30,6 +31,18 @@ module.exports = (client) => {
         commands.push(command.data.toJSON());
         client.commands.set(command.data.name, command);
     }
+    */
+
+    fs.readdirSync("./commands", { withFileTypes: true }).filter(file => file.isDirectory()).forEach(category => { // Don't access none existing folders
+        console.log(`Loading commands in ${category.name}...`);
+        fs.readdirSync(`./commands/${category.name}`, { withFileTypes: true }).filter(file => file.isFile()).forEach(file => {
+            // Commands
+            if (!file.name.endsWith(".js")) return; // Only add JS files
+            const command = require(`../commands/${category.name}/${file.name}`);
+            commands.push(command.data.toJSON());
+            client.commands.set(command.data.name, command);
+        });
+    });
 
 
     // Event handling

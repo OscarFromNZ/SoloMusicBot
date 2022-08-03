@@ -25,7 +25,7 @@ module.exports = {
             const emb = new MessageEmbed()
                 .setAuthor({ name: "I do not have permission to join or speak in this channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                 .setColor(vars.dangerColour)
-            await interaction.editReply({ embeds: [emb] })
+            await interaction.editReply({ embeds: [emb] });
             return;
         }
 

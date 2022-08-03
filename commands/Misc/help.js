@@ -14,7 +14,7 @@ module.exports = {
         .setDescription('⭐ Stuck? Run this command :)'),
 
     async execute(client, interaction, cache) {
-        console.log("Help command ran?");
+        interaction.reply("hewwo this cmd isn't a thing yet, going to make this once bot is done/released :)");
     }
 
 }
