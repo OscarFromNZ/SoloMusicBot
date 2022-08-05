@@ -21,23 +21,29 @@ const panelAPI = require('./getControlPanel');
 
 module.exports = {
     async playSong(client, interaction, cache, audio) {
-        if (!audio) {
+        if (typeof audio == 'undefined') {
             audio = new Map();
         }
+
         let serverQueue = cache.get(interaction.guild.id);
-        let connection = serverQueue.connection;
+        //let connection = serverQueue.connection;
+        const connection = getVoiceConnection(interaction.guild.id);
 
         let song = serverQueue.songs[0];
         let url = song.video_details.url;
+        
+        let player = audio.get(interaction.guild.id)
 
-        let player = createAudioPlayer({
-            behaviors: {
-                noSubscriber: NoSubscriberBehavior.Play
-            }
-        }); 
+        if (!player) {
+            player = createAudioPlayer({
+                behaviors: {
+                    noSubscriber: NoSubscriberBehavior.Pause,
+                }
+            });
+        }
         
         audio.set(interaction.guild.id, player);
-        
+
         console.log("Player initialized and ready");
 
         let source = await play.stream(url);
@@ -45,13 +51,14 @@ module.exports = {
 
         let resource = createAudioResource(source.stream, {
             inputType: source.type
-        })
+        });
+
         console.log("Resource initialized and ready");
 
         player.play(resource);
         console.log("Playing resource via player");
 
-        await connection.subscribe(player);
+        connection.subscribe(player);
         console.log("Connection subscribed, playing " + url);
 
         player.on(AudioPlayerStatus.Idle, async () => {
@@ -77,30 +84,36 @@ module.exports = {
                 } else {
                     console.log("No more songs, checking for autoplay");
 
-                    if (serverQueue.autoplay == false) return console.log("Autoplay is off");
-                    // If autoplay is on -->
-                    let songInfo = await play.video_info(song.related_videos[0]);
-                    //let songInfo1 = await play.video_info(song.related_videos[1]);
+                    if (serverQueue.autoplay == true) {  
+                        // If autoplay is on -->
+                        let songInfo = await play.video_info(song.related_videos[0]);
+                        //let songInfo1 = await play.video_info(song.related_videos[1]);
 
-                    let controlPanel = await panelAPI.getPanel(client, interaction, cache, songInfo);
-                    let emb1 = controlPanel[0];
-                    let button = controlPanel[1];
-                    let button1 = controlPanel[2];
+                        let controlPanel = await panelAPI.getPanel(client, interaction, cache, songInfo);
+                        let emb1 = controlPanel[0];
+                        let button = controlPanel[1];
+                        let button1 = controlPanel[2];
 
-                    const emb = new MessageEmbed()
-                        .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
-                        .setColor("#03fc6b")
+                        const emb = new MessageEmbed()
+                            .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                            .setColor("#03fc6b")
 
-                    await interaction.channel.send({ embeds: [emb, emb1], components: [button, button1], content: "🎶 Since `autoplay` is toggled to **'on'** in this guild, I am now playing **" + songInfo.video_details.title + "**\nMy autoplay formula can be quite bad, run `/autoplay off` to disable autoplay" });
+                        await interaction.channel.send({ embeds: [emb, emb1], components: [button, button1], content: "🎶 Since `autoplay` is toggled to **'on'** in this guild, I am now playing **" + songInfo.video_details.title + "**\nMy autoplay formula can be quite bad, run `/autoplay off` to disable autoplay" });
 
-                    // Autoplay
-                    serverQueue.songs.push(songInfo);
-                    module.exports.playSong(client, interaction, cache);
+                        // Autoplay
+                        serverQueue.songs.push(songInfo);
+                        module.exports.playSong(client, interaction, cache);
+                    }
+
                 }
             }
         });
 
         player.on('error', (error) => console.error(error));
+
+        player.on(AudioPlayerStatus.Paused, () => {
+            console.log("Player paused")
+        });
     }
 }
 

@@ -25,9 +25,6 @@ var cache = new Map();
 var audio = new Map();
 
 client.on('interactionCreate', async (interaction) => {
-    if (!audio) {
-        audio = new Map();
-    }
     // if the interaction is a command
     if (interaction.isCommand()) {
 
