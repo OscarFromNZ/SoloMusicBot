@@ -1,7 +1,7 @@
 ![Solo (1)](https://user-images.githubusercontent.com/93412639/183234556-ecf2b0b0-2577-410c-a30a-e6a9a8d01092.gif)
 
 # SoloMusicBot !
-# This bot is not finished yet. It has many bugs.
+### This bot is not finished yet. It has many bugs.
 
 Hello! This is my bot I'm making with JS!
 Pretty much, the idea of it is that it can play music in a discord voice channel/voice call, the user can interact with the music with commands like `/pause` and `/play`.
