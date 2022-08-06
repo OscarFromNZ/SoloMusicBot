@@ -18,7 +18,6 @@ const play = require('play-dl');
 
 const urlAPI = require('../../src/functions/isValidURL');
 const playAPI = require('../../src/functions/playSong');
-const panelAPI = require('../../src/functions/getControlPanel');
 const vars = require('../../variables.json');
 
 module.exports = {
@@ -55,9 +54,8 @@ module.exports = {
 
         let input = interaction.options.getString('song');
         console.log("Input given is " + input);
+
         let url;
-
-
 
         if (urlAPI.isValidHttpUrl(input) == true) {
             console.log("Input given was a YT link");
@@ -83,20 +81,16 @@ module.exports = {
 
         // getting song info
         let songInfo = await play.video_info(url);
-        let controlPanel = await panelAPI.getPanel(client, interaction, cache, songInfo);
 
         let songs = serverQueue.songs;
 
         if (songs.length === 0) {
             console.log("No songs in queue");
-            const emb = new MessageEmbed()
-                .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
-                .setColor("#03fc6b")
 
-            await interaction.editReply({ embeds: [emb] });
             serverQueue.songs.push(songInfo);
+
             await playAPI.playSong(client, interaction, cache, audio); // Calling the function to actually play the song
-            await interaction.channel.send(controlPanel);
+
         } else {
             console.log("Is songs in the queue!");
             const emb = new MessageEmbed()
@@ -106,6 +100,8 @@ module.exports = {
             await interaction.editReply({ embeds: [emb] });
             serverQueue.songs.push(songInfo);
         }
+
+        cache.set(interaction.guild.id, serverQueue);
 
     }
 

@@ -21,14 +21,24 @@ const panelAPI = require('./getControlPanel');
 
 module.exports = {
     async playSong(client, interaction, cache, audio) {
-
         let serverQueue = cache.get(interaction.guild.id);
         let connection = serverQueue.connection;
         //const connection = getVoiceConnection(interaction.guild.id);
 
-        let song = serverQueue.songs[0];
-        let url = song.video_details.url;
-        
+        let songInfo = serverQueue.songs[0];
+        let url = songInfo.video_details.url;
+
+
+        let controlPanel = await panelAPI.getPanel(client, interaction, cache, songInfo);
+
+        const emb = new MessageEmbed()
+            .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+            .setColor("#03fc6b")
+
+        await interaction.channel.send({ embeds: [emb] });
+        await interaction.channel.send(controlPanel);
+
+
         var player = audio.get(interaction.guild.id)
 
         if (!player) {
@@ -39,7 +49,7 @@ module.exports = {
                 }
             });
         }
-        
+
         audio.set(interaction.guild.id, player);
 
         console.log("Player initialized and ready");
@@ -61,8 +71,6 @@ module.exports = {
 
         player.on(AudioPlayerStatus.Idle, async () => {
             console.log("Audio status is idle");
-            //var serverQueue = cache.get(player.guild.id);
-            console.log(serverQueue.loop);
 
             // Check if loop is set to true or not
             if (serverQueue.loop == true) {
@@ -72,34 +80,22 @@ module.exports = {
                 } else {
                     console.log("No more songs");
                 }
+
             } else {
-                // Assuming loop is set to false
-                // Going to next song in queue  
-                serverQueue.songs.shift();
-                // Playing the song
-                if (serverQueue.songs.length > 0) {
+                if (serverQueue.songs.length > 1) {
+                    serverQueue.songs.shift();
                     module.exports.playSong(client, interaction, cache, audio);
+
                 } else {
+                    serverQueue.songs.shift();
+
                     console.log("No more songs, checking for autoplay");
+                    if (serverQueue.autoplay == false) return;
 
-                    if (serverQueue.autoplay == true) {  
-                        // If autoplay is on -->
-                        let songInfo = await play.video_info(song.related_videos[0]);
-                        //let songInfo1 = await play.video_info(song.related_videos[1]);
+                    let song = await play.video_info(songInfo.related_videos[0]);
 
-                        let controlPanel = await panelAPI.getPanel(client, interaction, cache, songInfo);
-
-                        const emb = new MessageEmbed()
-                            .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
-                            .setColor("#03fc6b")
-
-                        await interaction.channel.send({ embeds: [emb], content: "🎶 Since `autoplay` is toggled to **'on'** in this guild, I am now playing **" + songInfo.video_details.title + "**\nMy autoplay formula can be quite bad, run `/autoplay off` to disable autoplay" });
-                        await interaction.channel.send(controlPanel);
-
-                        // Autoplay
-                        serverQueue.songs.push(songInfo);
-                        module.exports.playSong(client, interaction, cache, audio);
-                    }
+                    serverQueue.songs.push(song);
+                    await playAPI.playSong(client, interaction, cache, audio);
 
                 }
             }
