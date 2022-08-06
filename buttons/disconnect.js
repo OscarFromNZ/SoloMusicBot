@@ -1,3 +1,9 @@
+const {
+    MessageEmbed,
+} = require('discord.js');
+
+const vars = require('../variables.json');
+
 module.exports = {
     async execute(client, interaction, cache) {
         const emb = new MessageEmbed()

@@ -17,7 +17,7 @@ module.exports = {
         .setName('skip')
         .setDescription('🎵 Skip to the next song in the queue!'),
 
-    async execute(client, interaction, cache) {
+    async execute(client, interaction, cache, audio) {
         interaction.deferReply();
 
         let serverQueue = cache.get(interaction.guild.id);
@@ -49,13 +49,13 @@ module.exports = {
             // Autoplay
             serverQueue.songs.push(songInfo);
             serverQueue.songs.push(songInfo1);
-            await playAPI.playSong(client, interaction, cache); 
+            await playAPI.playSong(client, interaction, cache, audio); 
         }
 
         // Getting song info, this is the same as the song variable above
         let songInfo = serverQueue.songs[0];
 
-        await playAPI.playSong(client, interaction, cache); // Calling the function to actually play the song
+        await playAPI.playSong(client, interaction, cache, audio); // Calling the function to actually play the song
 
         // getting control p details
         let controlPanel = await panelAPI.getPanel(client, interaction, cache, songInfo);

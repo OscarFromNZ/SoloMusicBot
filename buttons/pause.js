@@ -13,7 +13,7 @@ module.exports = {
         }
 
         try {
-            let player = audio.get(interaction.guild.id);
+            const player = audio.get(interaction.guild.id);
             player.pause();
         } catch (err) {
             console.log(err)

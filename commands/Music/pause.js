@@ -15,11 +15,16 @@ module.exports = {
 
     async execute(client, interaction, cache, audio) {
         console.log("Ran " + interaction.commandName + " command");
-        const serverQueue = cache.get(interaction.guild.id);
 
+        if (!audio) return interaction.reply("An error occurred, try again");
+
+        
         try {
-            let player = audio.get(interaction.guild.id);
+            
+            var player = audio.get(interaction.guild.id);
+            console.log("before pause", player);
             player.pause();
+            console.log("after pause", player);
         } catch (err) {
             console.log(err)
         }

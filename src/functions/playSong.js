@@ -21,24 +21,22 @@ const panelAPI = require('./getControlPanel');
 
 module.exports = {
     async playSong(client, interaction, cache, audio) {
-        if (typeof audio == 'undefined') {
-            audio = new Map();
-        }
 
         let serverQueue = cache.get(interaction.guild.id);
-        //let connection = serverQueue.connection;
-        const connection = getVoiceConnection(interaction.guild.id);
+        let connection = serverQueue.connection;
+        //const connection = getVoiceConnection(interaction.guild.id);
 
         let song = serverQueue.songs[0];
         let url = song.video_details.url;
         
-        let player = audio.get(interaction.guild.id)
+        var player = audio.get(interaction.guild.id)
 
         if (!player) {
+            console.log("createAudioPlayer");
             player = createAudioPlayer({
-                behaviors: {
-                    noSubscriber: NoSubscriberBehavior.Pause,
-                }
+                // behaviors: {
+                //     noSubscriber: NoSubscriberBehavior.Play
+                // }
             });
         }
         

@@ -18,8 +18,9 @@ module.exports = {
         const serverQueue = cache.get(interaction.guild.id);
 
         try {
-            let player = audio.get(interaction.guild.id);
+            var player = audio.get(interaction.guild.id);
             player.unpause();
+            console.log("after unpause", player);
         } catch (err) {
             console.log(err)
         }

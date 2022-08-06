@@ -22,7 +22,7 @@ const startup = require('./src/startup');
 startup(client)
 
 var cache = new Map();
-var audio = new Map();
+const audio = new Map();
 
 client.on('interactionCreate', async (interaction) => {
     // if the interaction is a command
