@@ -1,5 +1,8 @@
 
 # SoloMusicBot !
+Guys stop self hosting the bot it doesn't even work yet ;-;
+grrrr
+
 Hello! This is my bot I'm making with JS!
 Pretty much, the idea of it is that it can play music in a discord voice channel/voice call, the user can interact with the music with commands like `/pause` and `/play`.
 \n
