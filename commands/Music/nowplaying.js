@@ -14,6 +14,7 @@ module.exports = {
         .setDescription('🎵 View information of the current song'),
 
     async execute(client, interaction, cache) {
+        console.log("\x1b[36m%s\x1b[0m", "Ran " + interaction.commandName + " command");
         const serverQueue = cache.get(interaction.guild.id);
         const songs = serverQueue.songs;
 

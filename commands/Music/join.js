@@ -18,8 +18,8 @@ module.exports = {
 
     async execute(client, interaction, cache) {
         await interaction.deferReply();
-        console.log("Ran " + interaction.commandName + " command");
-
+        console.log("\x1b[36m%s\x1b[0m", "Ran " + interaction.commandName + " command");
+        
         const permissions = await interaction.member.voice.channel.permissionsFor(client.user.id);
         if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
             const emb = new MessageEmbed()

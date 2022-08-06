@@ -27,7 +27,7 @@ module.exports = {
 
 
     async execute(client, interaction, cache, audio) {
-        console.log("Ran " + interaction.commandName + " command");
+        console.log("\x1b[36m%s\x1b[0m", "Ran " + interaction.commandName + " command");
         var serverQueue = cache.get(interaction.guild.id);
 
         if (interaction.options.getSubcommand() === 'on') {

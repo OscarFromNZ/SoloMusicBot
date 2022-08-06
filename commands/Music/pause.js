@@ -14,17 +14,14 @@ module.exports = {
         .setDescription('🎵 Pause the current song'),
 
     async execute(client, interaction, cache, audio) {
-        console.log("Ran " + interaction.commandName + " command");
+        console.log("\x1b[36m%s\x1b[0m", "Ran " + interaction.commandName + " command");
 
         if (!audio) return interaction.reply("An error occurred, try again");
 
         
         try {
-            
             var player = audio.get(interaction.guild.id);
-            console.log("before pause", player);
             player.pause();
-            console.log("after pause", player);
         } catch (err) {
             console.log(err)
         }

@@ -10,11 +10,11 @@ const vars = require('../../variables.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('lyrics')
-        .setDescription('🎵 Get the lyrics of the current song!'),
+        .setName('support')
+        .setDescription('Get a link to our support server'),
 
     async execute(client, interaction, cache) {
-        console.log("\x1b[36m%s\x1b[0m", "Ran " + interaction.commandName + " command");
+        interaction.reply("hewwo this cmd isn't a thing yet, going to make this once bot is done/released :)");
     }
 
 }

@@ -34,9 +34,9 @@ module.exports = {
         if (!player) {
             console.log("createAudioPlayer");
             player = createAudioPlayer({
-                // behaviors: {
-                //     noSubscriber: NoSubscriberBehavior.Play
-                // }
+                behaviors: {
+                    noSubscriber: NoSubscriberBehavior.Pause
+                }
             });
         }
         
@@ -68,7 +68,7 @@ module.exports = {
             if (serverQueue.loop == true) {
                 // If the loop is true, play next song without shifting
                 if (serverQueue.songs.length > 0) {
-                    module.exports.playSong(client, interaction, cache);
+                    module.exports.playSong(client, interaction, cache, audio);
                 } else {
                     console.log("No more songs");
                 }
@@ -100,7 +100,7 @@ module.exports = {
 
                         // Autoplay
                         serverQueue.songs.push(songInfo);
-                        module.exports.playSong(client, interaction, cache);
+                        module.exports.playSong(client, interaction, cache, audio);
                     }
 
                 }

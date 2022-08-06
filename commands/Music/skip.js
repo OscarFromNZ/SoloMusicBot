@@ -18,6 +18,7 @@ module.exports = {
         .setDescription('🎵 Skip to the next song in the queue!'),
 
     async execute(client, interaction, cache, audio) {
+        console.log("\x1b[36m%s\x1b[0m", "Ran " + interaction.commandName + " command");
         interaction.deferReply();
 
         let serverQueue = cache.get(interaction.guild.id);

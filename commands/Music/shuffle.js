@@ -15,6 +15,7 @@ module.exports = {
         .setDescription('🎵 Shuffle the song queue!'),
 
     async execute(client, interaction, cache, audio) {
+        console.log("\x1b[36m%s\x1b[0m", "Ran " + interaction.commandName + " command");
 
         let player = audio.get(interaction.guild.id);
         await player.pause();

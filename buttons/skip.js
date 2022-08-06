@@ -11,7 +11,7 @@ const play = require('play-dl');
 const autoplay = require('../commands/Music/autoplay');
 
 module.exports = {
-    async execute(client, interaction, cache) {
+    async execute(client, interaction, cache, audio) {
         interaction.deferReply();
 
         let serverQueue = cache.get(interaction.guild.id);
@@ -55,12 +55,12 @@ module.exports = {
             // Autoplay
             serverQueue.songs.push(songInfo);
             serverQueue.songs.push(songInfo1);
-            await playAPI.playSong(client, interaction, cache);
+            await playAPI.playSong(client, interaction, cache, audio);
         }
         // getting song info
         let songInfo = serverQueue.songs[0];
 
-        await playAPI.playSong(client, interaction, cache); // Calling the function to actually play the song
+        await playAPI.playSong(client, interaction, cache, audio); // Calling the function to actually play the song
 
         // getting control p details
         let controlPanel = await panelAPI.getPanel(client, interaction, cache, songInfo);

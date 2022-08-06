@@ -14,7 +14,7 @@ module.exports = {
         .setDescription('🎵 Make me loop the current song'),
 
     async execute(client, interaction, cache) {
-        console.log("Ran " + interaction.commandName + " command");
+        console.log("\x1b[36m%s\x1b[0m", "Ran " + interaction.commandName + " command");
         const serverQueue = cache.get(interaction.guild.id);
 
         // Toggling loop bool

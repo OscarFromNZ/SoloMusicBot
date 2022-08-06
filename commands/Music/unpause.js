@@ -14,13 +14,11 @@ module.exports = {
         .setDescription('🎵 Unpause the current song'),
 
     async execute(client, interaction, cache, audio) {
-        console.log("Ran " + interaction.commandName + " command");
-        const serverQueue = cache.get(interaction.guild.id);
+        console.log("\x1b[36m%s\x1b[0m", "Ran " + interaction.commandName + " command");
 
         try {
             var player = audio.get(interaction.guild.id);
             player.unpause();
-            console.log("after unpause", player);
         } catch (err) {
             console.log(err)
         }

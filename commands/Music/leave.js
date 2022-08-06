@@ -14,7 +14,7 @@ module.exports = {
         .setDescription('🎵 Make me leave my current VC'),
 
     async execute(client, interaction, cache) {
-        console.log("Ran " + interaction.commandName + " command");
+        console.log("\x1b[36m%s\x1b[0m", "Ran " + interaction.commandName + " command");
         var serverQueue = cache.get(interaction.guild.id);
 
         const connection = serverQueue.connection;
