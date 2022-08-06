@@ -19,7 +19,7 @@ module.exports = {
     async execute(client, interaction, cache) {
         await interaction.deferReply();
         console.log("\x1b[36m%s\x1b[0m", "Ran " + interaction.commandName + " command");
-        
+
         const permissions = await interaction.member.voice.channel.permissionsFor(client.user.id);
         if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
             const emb = new MessageEmbed()
@@ -40,11 +40,10 @@ module.exports = {
                 const emb = new MessageEmbed()
                     .setAuthor({ name: "Joined your current voice channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                     .setColor(vars.successColour)
-                interaction.editReply({ embeds: [emb] })
+                interaction.editReply({ embeds: [emb], content: "🎶 **Tip:** Use </play:1005558358604009472> to queue another song!" })
 
                 // setting the connection to the serverqueue object so we can access it later
                 let serverQueue = cache.get(interaction.guild.id);
-                if (!serverQueue) console.log("Ran " + interaction.commandName + " but could not find a queue")
                 serverQueue.connection = connection;
                 cache.set(serverQueue, interaction.guild.id);
             })

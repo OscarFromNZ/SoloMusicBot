@@ -35,13 +35,13 @@ module.exports = {
         .setColor("#03fc6b")
 
         if (interaction.replied) {
-
+            console.log("Interaction has already been replied");
             await interaction.channel.send({ embeds: [emb] });
         } else if (interaction.deferred) {
-
+            console.log("Interaction has already been deferred");
             await interaction.editReply({ embeds: [emb] });
         } else {
-            
+            console.log("Interaction has not been replied or deferred");
             await interaction.reply({ embeds: [emb] });
         }
 
@@ -107,7 +107,7 @@ module.exports = {
                     serverQueue.songs.push(song);
 
                     cache.set(interaction.guild.id, serverQueue);
-                    await playAPI.playSong(client, interaction, cache, audio);
+                    await module.exports.playSong(client, interaction, cache, audio);
 
                 }
             }
