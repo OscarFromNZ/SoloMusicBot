@@ -7,10 +7,8 @@ const {
 } = require('discord.js');
 
 const playAPI = require('../../src/functions/playSong');
-const panelAPI = require('../../src/functions/getControlPanel');
-const vars = require('../../variables.json');
-
 const play = require('play-dl');
+const vars = require('../../variables.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -19,24 +17,21 @@ module.exports = {
 
     async execute(client, interaction, cache, audio) {
         console.log("\x1b[36m%s\x1b[0m", "Ran " + interaction.commandName + " command");
+        var serverQueue = cache.get(interaction.guild.id);
+        var songs = serverQueue.songs;
 
-        let serverQueue = cache.get(interaction.guild.id);
-        let song = serverQueue.songs[0];
+        if (songs.length < 2) {
+            const emb = new MessageEmbed()
+                .setAuthor({ name: "There are not enough songs in the queue!", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setColor(vars.dangerColour)
 
-        // skip to the next song in the queue
-        serverQueue.songs.shift();
-        if (!serverQueue.songs.length > 0) {
-            console.log("No more songs, checking for autoplay");
-
-            if (serverQueue.autoplay == false) return console.log("Autoplay is off");
-            // If autoplay is on -->
-            let songInfo = await play.video_info(song.related_videos[0]);
-
-            // Autoplay
-            serverQueue.songs.push(songInfo);
-            await playAPI.playSong(client, interaction, cache, audio); 
+            await interaction.reply({ embeds: [emb], content: "🎶 **Tip:** Use </play:1005558358604009472> to queue another song!" });
+            return;
         }
 
+        // skip to the next song in the queue and play it
+        serverQueue.songs.shift();
+        cache.set(interaction.guild.id, serverQueue);
         await playAPI.playSong(client, interaction, cache, audio); // Calling the function to actually play the song
 
     }

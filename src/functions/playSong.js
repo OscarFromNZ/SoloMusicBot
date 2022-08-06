@@ -28,14 +28,23 @@ module.exports = {
         let songInfo = serverQueue.songs[0];
         let url = songInfo.video_details.url;
 
-
         let controlPanel = await panelAPI.getPanel(client, interaction, cache, songInfo);
 
         const emb = new MessageEmbed()
-            .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
-            .setColor("#03fc6b")
+        .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+        .setColor("#03fc6b")
 
-        await interaction.channel.send({ embeds: [emb] });
+        if (interaction.replied) {
+
+            await interaction.channel.send({ embeds: [emb] });
+        } else if (interaction.deferred) {
+
+            await interaction.editReply({ embeds: [emb] });
+        } else {
+            
+            await interaction.reply({ embeds: [emb] });
+        }
+
         await interaction.channel.send(controlPanel);
 
 
@@ -84,17 +93,20 @@ module.exports = {
             } else {
                 if (serverQueue.songs.length > 1) {
                     serverQueue.songs.shift();
+                    cache.set(interaction.guild.id, serverQueue);
                     module.exports.playSong(client, interaction, cache, audio);
 
                 } else {
                     serverQueue.songs.shift();
 
                     console.log("No more songs, checking for autoplay");
-                    if (serverQueue.autoplay == false) return;
+                    if (serverQueue.autoplay == false) return console.log("No more songs");;
 
                     let song = await play.video_info(songInfo.related_videos[0]);
 
                     serverQueue.songs.push(song);
+
+                    cache.set(interaction.guild.id, serverQueue);
                     await playAPI.playSong(client, interaction, cache, audio);
 
                 }
