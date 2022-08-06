@@ -1,6 +1,5 @@
 
 # SoloMusicBot !
-https://user-images.githubusercontent.com/93412639/183234510-e8774de4-e4e3-4640-b4e9-f181cc21aaaa.mp4
 Guys stop self hosting the bot it doesn't even work yet ;-;
 grrrr
 
