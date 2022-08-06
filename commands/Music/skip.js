@@ -64,7 +64,7 @@ module.exports = {
             .setAuthor({ name: "Skipped old song, now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
             .setColor(vars.successColour)
 
-        await interaction.editReply({ embeds: [emb, emb1], components: [button, button1] });
+        await interaction.editReply({ embeds: [emb] });
         await interaction.channel.send(controlPanel);
     }
 

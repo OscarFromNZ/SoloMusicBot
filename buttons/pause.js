@@ -13,7 +13,7 @@ module.exports = {
         }
 
         try {
-            const player = audio.get(interaction.guild.id);
+            var player = audio.get(interaction.guild.id);
             player.pause();
         } catch (err) {
             console.log(err)
@@ -22,7 +22,6 @@ module.exports = {
         const emb = new MessageEmbed()
             .setAuthor({ name: "Paused the song, to unpause, run /unpause", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
             .setColor(vars.successColour)
-            .setFooter({ text: "This command is quite new and buggy, you can always mute me instead! :)"})
         await interaction.reply({ embeds: [emb] });
     }
 }

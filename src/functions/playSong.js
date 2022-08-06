@@ -78,7 +78,7 @@ module.exports = {
                 serverQueue.songs.shift();
                 // Playing the song
                 if (serverQueue.songs.length > 0) {
-                    module.exports.playSong(client, interaction, cache);
+                    module.exports.playSong(client, interaction, cache, audio);
                 } else {
                     console.log("No more songs, checking for autoplay");
 
