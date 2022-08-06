@@ -74,7 +74,7 @@ module.exports = {
                 }
             } else {
                 // Assuming loop is set to false
-                // Going to next song in queue
+                // Going to next song in queue  
                 serverQueue.songs.shift();
                 // Playing the song
                 if (serverQueue.songs.length > 0) {
@@ -88,15 +88,13 @@ module.exports = {
                         //let songInfo1 = await play.video_info(song.related_videos[1]);
 
                         let controlPanel = await panelAPI.getPanel(client, interaction, cache, songInfo);
-                        let emb1 = controlPanel[0];
-                        let button = controlPanel[1];
-                        let button1 = controlPanel[2];
 
                         const emb = new MessageEmbed()
                             .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                             .setColor("#03fc6b")
 
-                        await interaction.channel.send({ embeds: [emb, emb1], components: [button, button1], content: "🎶 Since `autoplay` is toggled to **'on'** in this guild, I am now playing **" + songInfo.video_details.title + "**\nMy autoplay formula can be quite bad, run `/autoplay off` to disable autoplay" });
+                        await interaction.channel.send({ embeds: [emb], content: "🎶 Since `autoplay` is toggled to **'on'** in this guild, I am now playing **" + songInfo.video_details.title + "**\nMy autoplay formula can be quite bad, run `/autoplay off` to disable autoplay" });
+                        await interaction.channel.send(controlPanel);
 
                         // Autoplay
                         serverQueue.songs.push(songInfo);

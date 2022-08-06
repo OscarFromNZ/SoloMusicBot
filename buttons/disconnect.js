@@ -5,7 +5,26 @@ const {
 const vars = require('../variables.json');
 
 module.exports = {
-    async execute(client, interaction, cache) {
+    async execute(client, interaction, cache, audio) {
+        var serverQueue = cache.get(interaction.guild.id);
+        var connection = serverQueue.connection;
+
+        var player = audio.get(interaction.guild.id);
+
+        player.stop();
+        connection.destroy();
+
+        // Resetting the server queue
+        serverQueue = {
+            vc: undefined,
+            connection: undefined,
+            songs: [],
+            loop: false,
+        }
+
+        cache.set(interaction.guild.id, serverQueue);
+
+
         const emb = new MessageEmbed()
             .setAuthor({ name: "Successfully disconnected and cleared the queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
             .setColor(vars.successColour)

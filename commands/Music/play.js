@@ -84,9 +84,6 @@ module.exports = {
         // getting song info
         let songInfo = await play.video_info(url);
         let controlPanel = await panelAPI.getPanel(client, interaction, cache, songInfo);
-        let emb1 = controlPanel[0];
-        let button = controlPanel[1];
-        let button1 = controlPanel[2];
 
         let songs = serverQueue.songs;
 
@@ -96,9 +93,10 @@ module.exports = {
                 .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                 .setColor("#03fc6b")
 
-            await interaction.editReply({ embeds: [emb, emb1], components: [button, button1] });
+            await interaction.editReply({ embeds: [emb] });
             serverQueue.songs.push(songInfo);
             await playAPI.playSong(client, interaction, cache, audio); // Calling the function to actually play the song
+            await interaction.channel.send(controlPanel);
         } else {
             console.log("Is songs in the queue!");
             const emb = new MessageEmbed()

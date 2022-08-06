@@ -54,7 +54,10 @@ module.exports = {
                 //{ name: '\u200B', value: '\u200B' },
             );
 
-        let data = [emb, panelRow, panelRow2];
+        let data = { 
+            embeds: [emb],
+            components: [panelRow, panelRow2],
+        }
 
         return data;
     }
