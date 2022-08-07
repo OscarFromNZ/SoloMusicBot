@@ -19,9 +19,11 @@ const play = require('play-dl');
 
 const panelAPI = require('./getControlPanel');
 const tipsAPI = require('./getTip');
+const playerAPI = require('./doPlayer');
 
 module.exports = {
     async playSong(client, interaction, cache, audio) {
+        console.log("\x1b[36m%s\x1b[0m", "Beginning playSong.js handler");
         let serverQueue = cache.get(interaction.guild.id);
         let connection = serverQueue.connection;
         //const connection = getVoiceConnection(interaction.guild.id);
@@ -49,18 +51,7 @@ module.exports = {
 
         await interaction.channel.send(controlPanel);
 
-
-        var player = audio.get(interaction.guild.id)
-
-        if (!player) {
-            console.log("createAudioPlayer");
-            player = createAudioPlayer({
-                behaviors: {
-                    noSubscriber: NoSubscriberBehavior.Pause
-                }
-            });
-        }
-
+        var player = await playerAPI.getOrCreatePlayerForGuild(client, interaction, cache, audio);
         audio.set(interaction.guild.id, player);
 
         console.log("Player initialized and ready");
@@ -80,46 +71,13 @@ module.exports = {
         connection.subscribe(player);
         console.log("Connection subscribed, playing " + url);
 
-        player.on(AudioPlayerStatus.Idle, async () => {
-            console.log("Audio status is idle");
-
-            // Check if loop is set to true or not
-            if (serverQueue.loop == true) {
-                // If the loop is true, play next song without shifting
-                if (serverQueue.songs.length > 0) {
-                    module.exports.playSong(client, interaction, cache, audio);
-                } else {
-                    console.log("No more songs");
-                }
-
-            } else {
-                if (serverQueue.songs.length > 1) {
-                    serverQueue.songs.shift();
-                    cache.set(interaction.guild.id, serverQueue);
-                    module.exports.playSong(client, interaction, cache, audio);
-
-                } else {
-                    serverQueue.songs.shift();
-
-                    console.log("No more songs, checking for autoplay");
-                    if (serverQueue.autoplay == false) return console.log("No more songs");;
-
-                    let song = await play.video_info(songInfo.related_videos[0]);
-
-                    serverQueue.songs.push(song);
-
-                    cache.set(interaction.guild.id, serverQueue);
-                    await module.exports.playSong(client, interaction, cache, audio);
-
-                }
-            }
-        });
-
+        /*
         player.on('error', (error) => console.error(error));
 
         player.on(AudioPlayerStatus.Paused, () => {
-            console.log("Player paused")
+            console.log("Audio paused")
         });
+        */
     }
 }
 

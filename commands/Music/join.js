@@ -40,7 +40,7 @@ module.exports = {
                 const emb = new MessageEmbed()
                     .setAuthor({ name: "Joined your current voice channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                     .setColor(vars.successColour)
-                interaction.editReply({ embeds: [emb], content: "🎶 **Tip:** Use </play:1005558358604009472> to queue another song!" })
+                interaction.editReply({ embeds: [emb], content: "🎶 **Tip:** Use </play:1005558358604009472> to queue a song!" })
 
                 // setting the connection to the serverqueue object so we can access it later
                 let serverQueue = cache.get(interaction.guild.id);
