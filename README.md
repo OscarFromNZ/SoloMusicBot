@@ -8,7 +8,6 @@ Pretty much, the idea of it is that it can play music in a discord voice channel
 \n
 I have a few commands that you'll see in the command folder as well as some button handles in the button folder, it's quite a simple bot.
 
-## Screenshots
 ![Solo](https://i.imgur.com/WPIVAMp.png)
 
 ## Help
