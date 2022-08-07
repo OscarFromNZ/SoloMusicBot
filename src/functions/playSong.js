@@ -18,6 +18,7 @@ const { createAudioPlayer, createAudioResource, StreamType, demuxProbe, NoSubscr
 const play = require('play-dl');
 
 const panelAPI = require('./getControlPanel');
+const tipsAPI = require('./getTip');
 
 module.exports = {
     async playSong(client, interaction, cache, audio) {
@@ -29,6 +30,7 @@ module.exports = {
         let url = songInfo.video_details.url;
 
         let controlPanel = await panelAPI.getPanel(client, interaction, cache, songInfo);
+        let tip = await tipsAPI.getTip(client, interaction, cache);
 
         const emb = new MessageEmbed()
         .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
@@ -36,13 +38,13 @@ module.exports = {
 
         if (interaction.replied) {
             console.log("Interaction has already been replied");
-            await interaction.channel.send({ embeds: [emb] });
+            await interaction.channel.send({ embeds: [emb], content: tip });
         } else if (interaction.deferred) {
             console.log("Interaction has already been deferred");
-            await interaction.editReply({ embeds: [emb] });
+            await interaction.editReply({ embeds: [emb], content: tip });
         } else {
             console.log("Interaction has not been replied or deferred");
-            await interaction.reply({ embeds: [emb] });
+            await interaction.reply({ embeds: [emb], content: tip });
         }
 
         await interaction.channel.send(controlPanel);
