@@ -23,4 +23,4 @@ Yeah nah there aren't any *legal* licenses for this bot but please don't self ho
 
 My dad helped me with a few things :)
 
-
+Star if you like :P
