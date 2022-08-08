@@ -12,6 +12,8 @@ const client = new Client({
 
 const vars = require('./variables.json');
 
+const { getVoiceConnections } = require('@discordjs/voice');
+
 const dotenv = require('dotenv');
 // import config IDs
 dotenv.config()
@@ -94,6 +96,26 @@ client.on('interactionCreate', async (interaction) => {
         await interaction.respond(
             filtered.map(choice => ({ name: choice, value: choice })),
         );
+    }
+
+});
+
+/*
+    Owner commands :)
+    I know they're really badly made but eh... only person seeing em is me, right?
+*/
+
+client.on("messageCreate", async(message) => {
+    if (!message.author.id === '422603238936936450') return;
+
+    if (message.content == '-guilds') {
+        message.channel.send(client.guilds.cache.size.toString());
+    }
+
+    if (message.content == '-players') {
+        let connectionsMap = getVoiceConnections();
+        console.log(connectionsMap.size);
+        message.channel.send(connectionsMap.size.toString());
     }
 
 });

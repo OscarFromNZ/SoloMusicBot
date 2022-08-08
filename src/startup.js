@@ -14,24 +14,8 @@ const { dirname } = require('path');
 module.exports = (client) => {
 
     // Command handling
-    const commands = [];    // Creating a collection for commands in client
+    const commands = [];
     client.commands = new Collection();
-
-    /*
-    const musicFiles = fs.readdirSync('./commands/Music').filter(file => file.endsWith('.js'));
-    for (const file of musicFiles) {
-        const command = require(`../commands/Music/${file}`);
-        commands.push(command.data.toJSON());
-        client.commands.set(command.data.name, command);
-    }
-
-    const miscFiles = fs.readdirSync('./commands/Misc').filter(file => file.endsWith('.js'));
-    for (const file of miscFiles) {
-        const command = require(`../commands/Misc/${file}`);
-        commands.push(command.data.toJSON());
-        client.commands.set(command.data.name, command);
-    }
-    */
 
     fs.readdirSync("./commands", { withFileTypes: true }).filter(file => file.isDirectory()).forEach(category => { // Don't access none existing folders
         console.log(`Loading commands in ${category.name}...`);
