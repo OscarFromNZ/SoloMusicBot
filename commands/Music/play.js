@@ -43,6 +43,7 @@ module.exports = {
         }
 
         const serverQueue = cache.get(interaction.guild.id);
+        
 
         if (!serverQueue.connection) {
             let emb = new MessageEmbed()
