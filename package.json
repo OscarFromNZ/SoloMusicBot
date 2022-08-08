@@ -9,10 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^13.9.2",
     "@discordjs/builders": "^0.15.0",
     "@discordjs/rest": "^0.5.0",
     "@discordjs/voice": "^0.10.0",
+    "discord.js": "^13.9.2",
     "dotenv": "^16.0.1",
     "ffmpeg": "^0.0.4",
     "ffmpeg-static": "^5.0.2",
