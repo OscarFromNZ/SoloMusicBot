@@ -109,13 +109,19 @@ client.on("messageCreate", async(message) => {
     if (!message.author.id === '422603238936936450') return;
 
     if (message.content == '-guilds') {
-        message.channel.send(client.guilds.cache.size.toString());
+        message.channel.send("\`\`\`" + client.guilds.cache.size.toString() + "\`\`\`");
     }
 
     if (message.content == '-players') {
         let connectionsMap = getVoiceConnections();
         console.log(connectionsMap.size);
-        message.channel.send(connectionsMap.size.toString());
+        message.channel.send("\`\`\`Connections " + connectionsMap.size.toString() + "\nPlayers " + audio.size.toString() + "\`\`\`");
+    }
+
+    if (message.content == '-members') {
+        const members = client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0);
+        console.log(members);
+        message.channel.send(members.toString());
     }
 
 });

@@ -7,7 +7,7 @@ const {
 } = require('discord.js');
 
 // well, we need to join a voice channel soooo kinda need diss
-const { joinVoiceChannel } = require('@discordjs/voice');
+const { joinVoiceChannel, getVoiceConnection } = require('@discordjs/voice');
 
 const vars = require('../../variables.json');
 
@@ -24,6 +24,18 @@ module.exports = {
         if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
             const emb = new MessageEmbed()
                 .setAuthor({ name: "I do not have permission to join or speak in this channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setColor(vars.dangerColour)
+            await interaction.editReply({ embeds: [emb] });
+            return;
+        }
+
+        if (interaction.guild.me.voice.channel) {
+            
+            let connection = getVoiceConnection();
+            if (typeof connection == 'undefined') return;
+
+            const emb = new MessageEmbed()
+                .setAuthor({ name: "I am already in a voice channel :(", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                 .setColor(vars.dangerColour)
             await interaction.editReply({ embeds: [emb] });
             return;
