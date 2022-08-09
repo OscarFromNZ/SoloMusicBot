@@ -14,7 +14,7 @@ const {
     MessageEmbed,
 } = require('discord.js');
 
-const { createAudioPlayer, createAudioResource, StreamType, demuxProbe, NoSubscriberBehavior, AudioPlayerStatus, VoiceConnectionStatus, getVoiceConnection } = require('@discordjs/voice');
+const { createAudioPlayer, createAudioResource, NoSubscriberBehavior, AudioPlayerStatus, VoiceConnectionStatus } = require('@discordjs/voice');
 const play = require('play-dl');
 
 const panelAPI = require('./getControlPanel');
