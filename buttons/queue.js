@@ -16,7 +16,7 @@ module.exports = {
             const emb = new MessageEmbed()
                 .setAuthor({ name: "There are no songs in the current queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                 .setColor(vars.dangerColour)
-            await interaction.editReply({ embeds: [emb] });
+            await interaction.reply({ embeds: [emb] });
 
             return;
         }
@@ -26,14 +26,14 @@ module.exports = {
         for (let i = 0; i < songs.length; i++) {
             description = description + `\`${i}.\` **${songs[i].video_details.title}**\n`;
         }
-        
+
         console.log(description);
 
         const emb = new MessageEmbed()
             .setColor('2f3136')
             .setDescription(description)
 
-        await interaction.editReply({ embeds: [emb], ephemeral: true });
+        await interaction.reply({ embeds: [emb], ephemeral: true });
 
     }
 }
