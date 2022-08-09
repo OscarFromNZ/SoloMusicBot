@@ -23,17 +23,16 @@ const TOKEN = process.env.TOKEN
     HTTP
 */
 const http = require("http");
-const host = 'localhost';
 const port = 8080;
 
 const requestListener = function (req, res) {
     res.writeHead(200);
-    res.end("My first server!");
+    res.end("<html><head></head><body><p>test</p></body></html>");
 };
 
 const server = http.createServer(requestListener);
-server.listen(port, host, () => {
-    console.log(`Server is running on http://${host}:${port}`);
+server.listen(port, () => {
+    console.log(`Server is running on ${port}`);
 });
 //
 
