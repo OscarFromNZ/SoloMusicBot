@@ -145,6 +145,11 @@ client.on("messageCreate", async(message) => {
         message.channel.send("yes.");
     }
 
+    if (message.content == '-say') {
+        await message.delete();
+        await message.channel.send(message.content);
+    }
+
 });
 
 client.login(TOKEN);
