@@ -18,7 +18,6 @@ module.exports = {
         var serverQueue = cache.get(interaction.guild.id);
 
         if (!interaction.guild.me.voice.channel) {
-
             const emb = new MessageEmbed()
                 .setAuthor({ name: "I am not in a voice channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                 .setColor(vars.dangerColour)

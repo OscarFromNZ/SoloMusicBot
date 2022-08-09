@@ -20,12 +20,21 @@ const play = require('play-dl');
 const panelAPI = require('./getControlPanel');
 const tipsAPI = require('./getTip');
 
+const vars = require('../../variables.json');
+
 module.exports = {
     async playSong(client, interaction, cache, audio) {
         console.log("\x1b[36m%s\x1b[0m", "Beginning playSong.js handler");
         let serverQueue = cache.get(interaction.guild.id);
         let connection = serverQueue.connection;
         //const connection = getVoiceConnection(interaction.guild.id);
+
+        if (serverQueue.songs.length < 1) {
+            const emb = new MessageEmbed()
+                .setAuthor({ name: "I cannot find any songs in the queue to play!", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setColor(vars.dangerColour)
+            await interaction.reply({ embeds: [emb], content: "🎶 **Tip:** Use </play:1005558358604009472> to queue a song" });
+        }
 
         let songInfo = serverQueue.songs[0];
         let url = songInfo.video_details.url;

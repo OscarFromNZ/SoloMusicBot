@@ -36,7 +36,7 @@ module.exports = {
             console.log("Getting connection");
             let connection = getVoiceConnection();
             console.log("Got connection");
-            if (typeof connection == 'undefined') return interaction.editReply({ content: "An error occurred, try reconnecting me to the VC"});
+            if (typeof connection == 'undefined') return interaction.editReply({ content: "An error occurred, get a mods to disconnect me manually"});
             console.log("Connection is not undefined");
 
             const emb = new MessageEmbed()
