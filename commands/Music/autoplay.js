@@ -40,7 +40,7 @@ module.exports = {
             const emb = new MessageEmbed()
                 .setAuthor({ name: "I have turned autoplay on for this session", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                 .setColor(vars.successColour)
-            await interaction.reply({ embeds: [emb] });
+            await interaction.editReply({ embeds: [emb] });
         }
 
         if (interaction.options.getSubcommand() === 'off') {
@@ -53,7 +53,7 @@ module.exports = {
             const emb = new MessageEmbed()
                 .setAuthor({ name: "I have turned autoplay off for this session", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                 .setColor(vars.successColour)
-            await interaction.reply({ embeds: [emb] });
+            await interaction.editReply({ embeds: [emb] });
         }
 
     }

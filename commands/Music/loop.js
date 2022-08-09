@@ -24,7 +24,7 @@ module.exports = {
         const emb = new MessageEmbed()
             .setAuthor({ name: "I have successfully toggled loop to " + serverQueue.loop, iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
             .setColor(vars.successColour)
-        await interaction.reply({ embeds: [emb] })
+        await interaction.editReply({ embeds: [emb] })
     }
 
 }

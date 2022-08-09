@@ -16,7 +16,7 @@ module.exports = {
     async execute(client, interaction, cache, audio) {
         console.log("\x1b[36m%s\x1b[0m", "Ran " + interaction.commandName + " command");
 
-        if (!audio) return interaction.reply("An error occurred, try again");
+        if (!audio) return interaction.editReply("An error occurred, try again");
 
         
         try {
@@ -29,7 +29,7 @@ module.exports = {
         const emb = new MessageEmbed()
             .setAuthor({ name: "Paused the song, to unpause, run /unpause", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
             .setColor(vars.successColour)
-        await interaction.reply({ embeds: [emb] });
+        await interaction.editReply({ embeds: [emb] });
     }
 
 }

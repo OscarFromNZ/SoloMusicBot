@@ -34,7 +34,7 @@ module.exports = {
         let emb = new MessageEmbed()
             .setAuthor({ name: "I have shuffled the queue, now playing \"" + songs[0].video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
             .setColor(vars.successColour)
-        await interaction.reply({ embeds: [emb] });
+        await interaction.editReply({ embeds: [emb] });
 
         await player.unpause();
         await playAPI.playSong(client, interaction, cache, audio);

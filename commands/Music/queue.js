@@ -51,7 +51,7 @@ module.exports = {
                 let emb3 = new MessageEmbed()
                     .setAuthor({ name: "There are no songs in the queue!", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                     .setColor(vars.dangerColour)
-                await interaction.reply({ embeds: [emb3] });
+                await interaction.editReply({ embeds: [emb3] });
                 return;
             }
 
@@ -70,7 +70,7 @@ module.exports = {
                 .setColor('2f3136')
                 .setDescription(description)
 
-            await interaction.reply({ embeds: [emb2, emb] });
+            await interaction.editReply({ embeds: [emb2, emb] });
 
         }
         if (interaction.options.getSubcommand() === 'remove') {
@@ -93,7 +93,7 @@ module.exports = {
             }
 
             emb.setAuthor({ name: "I have removed " + song + " from the queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
-            await interaction.reply({ embeds: [emb] });
+            await interaction.editReply({ embeds: [emb] });
         }
     }
 

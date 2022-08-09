@@ -79,6 +79,7 @@ client.on('interactionCreate', async (interaction) => {
         }
 
         try {
+            await interaction.deferReply();
             return await command.execute(client, interaction, cache, audio);
 
         } catch (err) {
@@ -89,12 +90,14 @@ client.on('interactionCreate', async (interaction) => {
 
         console.log("Interaction ran was a button");
 
+        await interaction.deferReply();
+
         const buttonID = interaction.component.customId;
         console.log(buttonID);
 
         const file = require(`./buttons/${buttonID}`);
         console.log("File is " + file);
-        file.execute(client, interaction, cache, audio);
+        await file.execute(client, interaction, cache, audio);
 
     } else if (interaction.isAutocomplete()) {
         let serverQueue = cache.get(interaction.guild.id);
