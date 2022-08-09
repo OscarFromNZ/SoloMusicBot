@@ -75,11 +75,14 @@ module.exports = {
         }
         if (interaction.options.getSubcommand() === 'remove') {
             const emb = new MessageEmbed()
-                .setColor(vars.successColour);
+            .setColor(vars.successColour);
 
             const serverQueue = cache.get(interaction.guild.id);
             const songs = serverQueue.songs;
             const song = interaction.options.getString("song");
+
+            emb.setAuthor({ name: "I have removed " + song + " from the queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+            await interaction.editReply({ embeds: [emb] });
 
             for (let i = 0; i < songs.length; i++) {
                 if (songs[i].video_details.title === song) {
@@ -92,8 +95,6 @@ module.exports = {
                 }
             }
 
-            emb.setAuthor({ name: "I have removed " + song + " from the queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
-            await interaction.editReply({ embeds: [emb] });
         }
     }
 

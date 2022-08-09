@@ -33,10 +33,16 @@ module.exports = {
             const emb = new MessageEmbed()
                 .setAuthor({ name: "I cannot find any songs in the queue to play!", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
                 .setColor(vars.dangerColour)
-            await interaction.reply({ embeds: [emb], content: "🎶 **Tip:** Use </play:1005558358604009472> to queue a song" });
+            await interaction.followUp({ embeds: [emb], content: "🎶 **Tip:** Use </play:1005558358604009472> to queue a song" });
         }
 
         let songInfo = serverQueue.songs[0];
+        if (typeof songInfo === 'undefined') {
+            const emb = new MessageEmbed()
+                .setAuthor({ name: "err", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setColor(vars.dangerColour)
+            await interaction.followUp({ embeds: [emb], content: "🎶 **Tip:** Use </play:1005558358604009472> to queue a song" });
+        }
         let url = songInfo.video_details.url;
 
         let controlPanel = await panelAPI.getPanel(client, interaction, cache, songInfo);
