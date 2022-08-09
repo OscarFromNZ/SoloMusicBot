@@ -141,6 +141,10 @@ client.on("messageCreate", async(message) => {
         message.channel.send(members.toString());
     }
 
+    if (message.content == 'are you work') {
+        message.channel.send("yes.");
+    }
+
 });
 
 client.login(TOKEN);
