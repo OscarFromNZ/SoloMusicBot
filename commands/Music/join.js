@@ -20,6 +20,7 @@ module.exports = {
         await interaction.deferReply();
         console.log("\x1b[36m%s\x1b[0m", "Ran " + interaction.commandName + " command");
 
+        console.log("Beginnng checks");
         const permissions = await interaction.member.voice.channel.permissionsFor(client.user.id);
         if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
             const emb = new MessageEmbed()
@@ -30,7 +31,7 @@ module.exports = {
         }
 
         if (interaction.guild.me.voice.channel) {
-            
+
             let connection = getVoiceConnection();
             if (typeof connection == 'undefined') return;
 
@@ -40,14 +41,17 @@ module.exports = {
             await interaction.editReply({ embeds: [emb] });
             return;
         }
+        console.log("Passed checks");
 
         const guild = client.guilds.fetch(interaction.member.guild.id).then(guild => {
             const channel = guild.channels.fetch(interaction.member.voice.channel.id).then(channel => {
+                console.log("🌳 Joining VC");
                 const connection = joinVoiceChannel({
                     guildId: guild.id,
                     channelId: channel.id,
                     adapterCreator: guild.voiceAdapterCreator
                 })
+                console.log("🌳 Joined VC");
 
                 const emb = new MessageEmbed()
                     .setAuthor({ name: "Joined your current voice channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
