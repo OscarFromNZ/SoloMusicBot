@@ -90,19 +90,16 @@ client.on('interactionCreate', async (interaction) => {
 
         console.log("Interaction ran was a button");
 
-        await interaction.deferReply();
-
-        const buttonID = interaction.component.customId;
+        const buttonID = await interaction.component.customId;
         console.log(buttonID);
 
-        const file = require(`./buttons/${buttonID}`);
+        const file = await require(`./buttons/${buttonID}`);
         console.log("File is " + file);
         await file.execute(client, interaction, cache, audio);
 
     } else if (interaction.isAutocomplete()) {
         let serverQueue = cache.get(interaction.guild.id);
         let songs = serverQueue.songs;
-        //console.log(songs);
 
         const choices = [];
         for (let i = 0; i < songs.length; i++) {

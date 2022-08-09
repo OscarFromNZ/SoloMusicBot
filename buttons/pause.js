@@ -22,6 +22,6 @@ module.exports = {
         const emb = new MessageEmbed()
             .setAuthor({ name: "Paused the song, to unpause, run /unpause", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
             .setColor(vars.successColour)
-        await interaction.editReply({ embeds: [emb] });
+        await interaction.reply({ embeds: [emb] });
     }
 }
