@@ -19,7 +19,6 @@ const play = require('play-dl');
 
 const panelAPI = require('./getControlPanel');
 const tipsAPI = require('./getTip');
-//const playerAPI = require('./doPlayer');
 
 module.exports = {
     async playSong(client, interaction, cache, audio) {
