@@ -8,6 +8,12 @@ const vars = require('../variables.json');
 module.exports = {
     async execute(client, interaction, cache, audio) {
 
+        if (!serverQueue) interaction.reply({
+            embed: new MessageEmbed()
+                .setAuthor({ name: "An error occured, click this text to contact support", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setColor(vars.dangerColour)
+        });
+
         const serverQueue = cache.get(interaction.guild.id);
         const songs = serverQueue.songs;
 

@@ -9,6 +9,12 @@ const vars = require('../variables.json');
 module.exports = {
     async execute(client, interaction, cache, audio) {
 
+        if (!serverQueue) interaction.reply({
+            embed: new MessageEmbed()
+                .setAuthor({ name: "An error occured, click this text to contact support", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setColor(vars.dangerColour)
+        });
+        
         let serverQueue = cache.get(interaction.guild.id);
         let songs = serverQueue.songs;
 
@@ -26,7 +32,7 @@ module.exports = {
         cache.set(interaction.guild.id, serverQueue);
         await playAPI.playSong(client, interaction, cache, audio);
 
-        
+
     }
 
 }
