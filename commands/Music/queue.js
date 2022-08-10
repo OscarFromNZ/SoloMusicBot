@@ -49,14 +49,14 @@ module.exports = {
 
             if (songs.length === 0) {
                 let emb3 = new MessageEmbed()
-                    .setAuthor({ name: "There are no songs in the queue!", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                    .setAuthor({ name: "There are no songs in the queue!", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
                     .setColor(vars.dangerColour)
                 await interaction.editReply({ embeds: [emb3] });
                 return;
             }
 
             let emb2 = new MessageEmbed()
-                .setAuthor({ name: "Here is the current server queue for " + interaction.guild.name, iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setAuthor({ name: "Here is the current server queue for " + interaction.guild.name, iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
                 .setColor(vars.successColour)
 
             let description = "";
@@ -81,7 +81,7 @@ module.exports = {
             const songs = serverQueue.songs;
             const song = interaction.options.getString("song");
 
-            emb.setAuthor({ name: "I have removed " + song + " from the queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+            emb.setAuthor({ name: "I have removed " + song + " from the queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
             await interaction.editReply({ embeds: [emb] });
 
             for (let i = 0; i < songs.length; i++) {

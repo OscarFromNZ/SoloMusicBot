@@ -20,7 +20,7 @@ module.exports = {
         }
 
         const emb = new MessageEmbed()
-            .setAuthor({ name: "Paused the song, to unpause, run /unpause", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+            .setAuthor({ name: "Paused the song, to unpause, run /unpause", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
             .setColor(vars.successColour)
         await interaction.reply({ embeds: [emb] });
     }

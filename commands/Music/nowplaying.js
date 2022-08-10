@@ -20,13 +20,13 @@ module.exports = {
 
         if (!songs[0]) {
             const emb = new MessageEmbed()
-                .setAuthor({ name: "I am not playing any songs right now", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setAuthor({ name: "I am not playing any songs right now", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
                 .setColor(vars.dangerColour)
             await interaction.editReply({ embeds: [emb] });
         }
 
         const emb = new MessageEmbed()
-            .setAuthor({ name: "I am currently playing \"" + songs[0].video_details.title + "\" by " + songs[0].video_details.channel, iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+            .setAuthor({ name: "I am currently playing \"" + songs[0].video_details.title + "\" by " + songs[0].video_details.channel, iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
             .setColor(vars.successColour)
         await interaction.editReply({ embeds: [emb] });
     }

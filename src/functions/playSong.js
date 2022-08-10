@@ -27,17 +27,19 @@ module.exports = {
 
         if (serverQueue.songs.length < 1) {
             const emb = new MessageEmbed()
-                .setAuthor({ name: "I cannot find any songs in the queue to play!", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setAuthor({ name: "I cannot find any songs in the queue to play!", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
                 .setColor(vars.dangerColour)
             await interaction.followUp({ embeds: [emb], content: "🎶 **Tip:** Use </play:1005558358604009472> to queue a song" });
+            return;
         }
 
         let songInfo = serverQueue.songs[0];
         if (typeof songInfo === 'undefined') {
             const emb = new MessageEmbed()
-                .setAuthor({ name: "err", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setAuthor({ name: "I ran into an error :(", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
                 .setColor(vars.dangerColour)
             await interaction.followUp({ embeds: [emb], content: "🎶 **Tip:** Use </play:1005558358604009472> to queue a song" });
+            return;
         }
         let url = songInfo.video_details.url;
 
@@ -45,7 +47,7 @@ module.exports = {
         let tip = await tipsAPI.getTip(client, interaction, cache);
 
         const emb = new MessageEmbed()
-        .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+        .setAuthor({ name: "Now playing: \"" + songInfo.video_details.title + "\"", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
         .setColor("#03fc6b")
 
         if (interaction.replied) {

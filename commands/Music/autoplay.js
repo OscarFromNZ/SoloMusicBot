@@ -38,7 +38,7 @@ module.exports = {
             }
 
             const emb = new MessageEmbed()
-                .setAuthor({ name: "I have turned autoplay on for this session", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setAuthor({ name: "I have turned autoplay on for this session", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
                 .setColor(vars.successColour)
             await interaction.editReply({ embeds: [emb] });
         }
@@ -51,7 +51,7 @@ module.exports = {
             }
 
             const emb = new MessageEmbed()
-                .setAuthor({ name: "I have turned autoplay off for this session", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setAuthor({ name: "I have turned autoplay off for this session", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
                 .setColor(vars.successColour)
             await interaction.editReply({ embeds: [emb] });
         }

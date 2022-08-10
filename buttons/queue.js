@@ -10,7 +10,7 @@ module.exports = {
 
         if (!serverQueue) interaction.reply({
             embed: new MessageEmbed()
-                .setAuthor({ name: "An error occured, click this text to contact support", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setAuthor({ name: "An error occured, click this text to contact support", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
                 .setColor(vars.dangerColour)
         });
 
@@ -20,7 +20,7 @@ module.exports = {
         if (!songs) {
 
             const emb = new MessageEmbed()
-                .setAuthor({ name: "There are no songs in the current queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setAuthor({ name: "There are no songs in the current queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
                 .setColor(vars.dangerColour)
             await interaction.reply({ embeds: [emb] });
 

@@ -40,7 +40,7 @@ module.exports = {
             console.log("Connection is not undefined");
 
             const emb = new MessageEmbed()
-                .setAuthor({ name: "I am already in a voice channel :(", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setAuthor({ name: "I am already in a voice channel :(", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn'})
                 .setColor(vars.dangerColour)
             await interaction.editReply({ embeds: [emb] });
             return;
@@ -59,7 +59,7 @@ module.exports = {
                 console.log("🌳 Joined VC");
 
                 const emb = new MessageEmbed()
-                    .setAuthor({ name: "Joined your current voice channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                    .setAuthor({ name: "Joined your current voice channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn'})
                     .setColor(vars.successColour)
                 interaction.editReply({ embeds: [emb], content: "🎶 **Tip:** Use </play:1005558358604009472> to queue a song!" })
 

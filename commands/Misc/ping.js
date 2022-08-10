@@ -15,7 +15,7 @@ module.exports = {
 
     async execute(client, interaction, cache) {
         const emb = new MessageEmbed()
-            .setAuthor({ name: `Latency is ${Date.now() - interaction.createdTimestamp}ms & API Latency is ${Math.round(client.ws.ping)}ms`, iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+            .setAuthor({ name: `Latency is ${Date.now() - interaction.createdTimestamp}ms & API Latency is ${Math.round(client.ws.ping)}ms`, iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
             .setColor(vars.successColour)
         await interaction.editReply({ embeds: [emb] })
     }

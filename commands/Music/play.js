@@ -35,7 +35,7 @@ module.exports = {
         const permissions = interaction.member.voice.channel.permissionsFor(client.user.id);
         if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
             const emb = new MessageEmbed()
-                .setAuthor({ name: "I do not have permission to join or speak in this channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setAuthor({ name: "I do not have permission to join or speak in this channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
                 .setColor(vars.dangerColour)
             await interaction.editReply({ embeds: [emb] })
             return;
@@ -46,7 +46,7 @@ module.exports = {
 
         if (!serverQueue.connection) {
             let emb = new MessageEmbed()
-                .setAuthor({ name: "Please run the /join command first", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setAuthor({ name: "Please run the /join command first", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
                 .setColor(vars.dangerColour)
             await interaction.editReply({ embeds: [emb] })
             return;
@@ -94,7 +94,7 @@ module.exports = {
         } else {
             console.log("Is songs in the queue!");
             const emb = new MessageEmbed()
-                .setAuthor({ name: "Added: \"" + songInfo.video_details.title + "\" to the queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/GyGCYu5ukJ' })
+                .setAuthor({ name: "Added: \"" + songInfo.video_details.title + "\" to the queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
                 .setColor("#03fc6b")
 
             await interaction.editReply({ embeds: [emb] });
