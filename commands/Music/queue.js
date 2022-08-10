@@ -81,7 +81,7 @@ module.exports = {
             const songs = serverQueue.songs;
             const song = interaction.options.getString("song");
 
-            emb.setAuthor({ name: "I have removed " + song + " from the queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
+            emb.setAuthor({ name: "Removed " + song + " from the queue", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
             await interaction.editReply({ embeds: [emb] });
 
             for (let i = 0; i < songs.length; i++) {
