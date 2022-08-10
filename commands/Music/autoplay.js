@@ -56,6 +56,8 @@ module.exports = {
             await interaction.editReply({ embeds: [emb] });
         }
 
+        cache.set(interaction.guild.id, serverQueue);
+
     }
 
 }
