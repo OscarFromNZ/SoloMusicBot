@@ -19,7 +19,7 @@ module.exports = {
 
         if (songs.length < 2) {
             const emb = new MessageEmbed()
-                .setAuthor({ name: "There are not enough songs in the queue!", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
+                .setAuthor({ name: "There are not enough songs in the queue to skip!", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
                 .setColor(vars.dangerColour)
 
             await interaction.reply({ embeds: [emb], content: "🎶 **Tip:** Use </play:1005558358604009472> to queue a song!" });
