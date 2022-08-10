@@ -9,13 +9,12 @@ const vars = require('../variables.json');
 module.exports = {
     async execute(client, interaction, cache, audio) {
 
+        let serverQueue = cache.get(interaction.guild.id);
         if (!serverQueue) interaction.reply({
             embed: new MessageEmbed()
                 .setAuthor({ name: "An error occured, click this text to contact support", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
                 .setColor(vars.dangerColour)
         });
-
-        let serverQueue = cache.get(interaction.guild.id);
         let songs = serverQueue.songs;
 
         if (songs.length < 2) {
