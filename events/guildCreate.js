@@ -5,11 +5,11 @@ const {
 
 module.exports = {
 	name: 'guildCreate',
-	execute(guild) {
+	async execute(guild) {
 		console.log(`Added to ${guild.name}`);
 
-		const logs = guild.channels.cache.get("1007177238959116318");
-		logs.send("Added to " + guild.name);
+		const logs = await client.channels.cache.get("1007177238959116318");
+		await logs.send("Added to " + guild.name);
 
 		const channel = guild.systemChannel;
 
