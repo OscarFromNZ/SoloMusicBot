@@ -27,7 +27,7 @@ module.exports = {
         var player = audio.get(interaction.guild.id);
 
         player.stop();
-        connection.destroy();
+        connection.disconnect();
 
         // Resetting the server queue
         serverQueue = {
