@@ -11,7 +11,7 @@ module.exports = {
 		const logs = await guild.client.channels.cache.get("1007177238959116318");
 		await logs.send("Added to " + guild.name);
 
-		const channel = await guild.systemChannel;
+		var channel = await guild.systemChannel;
 		if (!channel) {
 			channel = await guild.publicUpdatesChannel;
 		}
