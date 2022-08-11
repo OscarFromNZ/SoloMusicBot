@@ -8,6 +8,9 @@ module.exports = {
 	execute(guild) {
 		console.log(`Added to ${guild.name}`);
 
+		const logs = guild.channels.cache.get("1007177238959116318");
+		logs.send("Added to " + guild.name);
+
 		const channel = guild.systemChannel;
 
 		const emb = new MessageEmbed()
