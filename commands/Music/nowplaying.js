@@ -23,6 +23,7 @@ module.exports = {
                 .setAuthor({ name: "I am not playing any songs right now", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
                 .setColor(vars.dangerColour)
             await interaction.editReply({ embeds: [emb] });
+            return;
         }
 
         const emb = new MessageEmbed()
