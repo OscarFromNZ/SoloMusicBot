@@ -11,13 +11,7 @@ module.exports = {
 		const logs = await guild.client.channels.cache.get("1007177238959116318");
 		await logs.send("Added to " + guild.name);
 
-		var channel = await guild.systemChannel;
-		if (!channel) {
-			channel = await guild.publicUpdatesChannel;
-		}
-		if (!channel) {
-			return;
-		}
+		var channel = guild.systemChannelID ? guild.channels.get(guild.systemChannelID) : guild.channels.find((n) =>  n.permissionsOf("783708073390112830").has("sendMessages") &&  n.permissionsOf("783708073390112830").has("embedLinks"));
 
 		const emb = new MessageEmbed()
 			.setTitle("<:solo:991232706274926683> Solo, the top music bot for Discord!")
