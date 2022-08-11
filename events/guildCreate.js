@@ -11,7 +11,13 @@ module.exports = {
 		const logs = await guild.client.channels.cache.get("1007177238959116318");
 		await logs.send("Added to " + guild.name);
 
-		const channel = guild.systemChannel;
+		const channel = await guild.systemChannel;
+		if (!channel) {
+			channel = await guild.publicUpdatesChannel;
+		}
+		if (!channel) {
+			return;
+		}
 
 		const emb = new MessageEmbed()
 			.setTitle("<:solo:991232706274926683> Solo, the top music bot for Discord!")
