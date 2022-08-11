@@ -25,6 +25,14 @@ module.exports = {
             return;
         }
 
+        if (!interaction.member.voice.channel) {
+            let emb = new MessageEmbed()
+                .setAuthor({ name: "You need to be in a voice channel to run this command", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
+                .setColor(vars.dangerColour)
+            await interaction.reply({ embeds: [emb] })
+            return;
+        }
+
         const connection = serverQueue.connection;
         connection.destroy();
 

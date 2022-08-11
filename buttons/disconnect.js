@@ -6,6 +6,16 @@ const vars = require('../variables.json');
 
 module.exports = {
     async execute(client, interaction, cache, audio) {
+
+        if (!interaction.guild.me.voice.channel) {
+
+            console.log("Getting connection");
+            const emb = new MessageEmbed()
+                .setAuthor({ name: "I am not in a voice channel :(", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn'})
+                .setColor(vars.dangerColour)
+            await interaction.editReply({ embeds: [emb] });
+            return;
+        }
         
         if (!interaction.member.voice.channel) {
             let emb = new MessageEmbed()
@@ -27,7 +37,7 @@ module.exports = {
         var player = audio.get(interaction.guild.id);
 
         player.stop();
-        connection.disconnect();
+        connection.destroy();
 
         // Resetting the server queue
         serverQueue = {
