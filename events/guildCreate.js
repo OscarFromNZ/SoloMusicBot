@@ -13,7 +13,7 @@ module.exports = {
 
 		if (0 == guild.channels.size) return;
 
-		var channel = guild.systemChannelID ? guild.channels.get(guild.systemChannelID) : guild.channels.cache.find((n) =>  n.permissionsOf("928009793099149373").has("sendMessages") &&  n.permissionsOf("928009793099149373").has("embedLinks"));
+		var channel = guild.systemChannelID ? guild.channels.get(guild.systemChannelID) : guild.channels.cache.find((n) =>  n.permissionsFor("928009793099149373").has("sendMessages") &&  n.permissionsFor("928009793099149373").has("embedLinks"));
 		if (!channel || channel.type !== 0) return
 
 		const emb = new MessageEmbed()
