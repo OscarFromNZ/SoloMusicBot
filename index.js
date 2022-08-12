@@ -79,7 +79,11 @@ client.on('interactionCreate', async (interaction) => {
 
         try {
             await interaction.deferReply();
-            return await command.execute(client, interaction, cache, audio);
+            try {
+                return await command.execute(client, interaction, cache, audio);
+            } catch (error) {
+                console.log("\n" + error);
+            }
 
         } catch (err) {
             if (err) console.log(err);
