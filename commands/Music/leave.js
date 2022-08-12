@@ -16,6 +16,7 @@ module.exports = {
     async execute(client, interaction, cache) {
         console.log("\x1b[36m%s\x1b[0m", "Ran " + interaction.commandName + " command");
         var serverQueue = cache.get(interaction.guild.id);
+        var connection = serverQueue.connection;
 
         if (!interaction.guild.me.voice.channel) {
             const emb = new MessageEmbed()
@@ -33,8 +34,12 @@ module.exports = {
             return;
         }
 
-        const connection = serverQueue.connection;
-        connection.destroy();
+        try {
+            player.stop();
+            connection.destroy();
+        } catch (e) {
+            console.log(e);
+        }
 
         // Resetting the server queue
         serverQueue = {

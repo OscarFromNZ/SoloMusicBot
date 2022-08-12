@@ -36,8 +36,12 @@ module.exports = {
 
         var player = audio.get(interaction.guild.id);
 
-        player.stop();
-        connection.destroy();
+        try {
+            player.stop();
+            connection.destroy();
+        } catch (e) {
+            console.log(e);
+        }
 
         // Resetting the server queue
         serverQueue = {
