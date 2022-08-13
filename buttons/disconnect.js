@@ -13,7 +13,7 @@ module.exports = {
             const emb = new MessageEmbed()
                 .setAuthor({ name: "I am not in a voice channel :(", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn'})
                 .setColor(vars.dangerColour)
-            await interaction.editReply({ embeds: [emb] });
+            await interaction.reply({ embeds: [emb] });
             return;
         }
         
