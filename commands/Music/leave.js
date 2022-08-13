@@ -24,20 +24,27 @@ module.exports = {
             console.log(e);
         }
 
-        if (!interaction.guild.me.voice.channel) {
-            const emb = new MessageEmbed()
-                .setAuthor({ name: "I am not in a voice channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
-                .setColor(vars.dangerColour)
-            await interaction.editReply({ embeds: [emb] });
-            return;
-        }
+        try {
+            if (!interaction.guild.me.voice.channel) {
+                const emb = new MessageEmbed()
+                    .setAuthor({ name: "I am not in a voice channel", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
+                    .setColor(vars.dangerColour)
+                await interaction.editReply({ embeds: [emb] });
+                return;
+            }
 
-        if (!interaction.member.voice.channel) {
-            let emb = new MessageEmbed()
-                .setAuthor({ name: "You need to be in a voice channel to run this command", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
-                .setColor(vars.dangerColour)
-            await interaction.reply({ embeds: [emb] })
-            return;
+            if (!interaction.member.voice.channel) {
+                const emb = new MessageEmbed()
+                    .setAuthor({ name: "You need to be in a voice channel to run this command", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
+                    .setColor(vars.dangerColour)
+                await interaction.editReply({ embeds: [emb] })
+                return;
+            }
+
+        } catch (e) {
+            console.log(e);
+            const logs = await guild.client.channels.cache.get("1007177238959116318");
+            await logs.send(e);
         }
 
         try {
