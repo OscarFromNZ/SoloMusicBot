@@ -13,10 +13,16 @@ module.exports = {
         .setName('disconnect')
         .setDescription('🎵 Make me leave my current VC'),
 
-    async execute(client, interaction, cache) {
+    async execute(client, interaction, cache, audio) {
         console.log("\x1b[36m%s\x1b[0m", "Ran " + interaction.commandName + " command");
-        var serverQueue = cache.get(interaction.guild.id);
-        var connection = serverQueue.connection;
+        try {
+            var serverQueue = cache.get(interaction.guild.id);
+            var connection = serverQueue.connection;
+            var player = audio.get(interaction.guild.id);
+
+        } catch (e) {
+            console.log(e);
+        }
 
         if (!interaction.guild.me.voice.channel) {
             const emb = new MessageEmbed()
