@@ -43,7 +43,7 @@ module.exports = {
 
         } catch (e) {
             console.log(e);
-            const logs = await guild.client.channels.cache.get("1007177238959116318");
+            const logs = await client.channels.cache.get("1007177238959116318");
             await logs.send(e);
         }
 

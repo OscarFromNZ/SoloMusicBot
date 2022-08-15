@@ -32,10 +32,10 @@ module.exports = {
                     .setAuthor({ name: "An error occured, click this text to contact support", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
                     .setColor(vars.dangerColour)
             });
-            
+
         } catch (e) {
             console.log(e);
-            const logs = await guild.client.channels.cache.get("1007177238959116318");
+            const logs = await client.channels.cache.get("1007177238959116318");
             await logs.send(e);
         }
 
