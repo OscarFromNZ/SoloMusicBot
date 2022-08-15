@@ -40,11 +40,15 @@ module.exports = {
         } catch (e) {
             console.log(e);
         }
+
+        try {
+            cache.set(interaction.guild.id, serverQueue);
+            await playAPI.playSong(client, interaction, cache, audio);
+    
+        } catch (e) {
+            console.log(e);
         
-        cache.set(interaction.guild.id, serverQueue);
-        await playAPI.playSong(client, interaction, cache, audio);
-
-
+        }
     }
 
 }
