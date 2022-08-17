@@ -36,12 +36,13 @@ server.listen(port, () => {
 });
 //
 
-const startup = require('./src/startup');
-// run this script upon starting up the bot and pass in the client
-startup(client)
-
 var cache = new Map();
 const audio = new Map();
+
+const startup = require('./src/startup');
+// run this script upon starting up the bot and pass in the client
+startup(client, cache, audio)
+
 
 client.on('interactionCreate', async (interaction) => {
     // if the interaction is a command
@@ -91,14 +92,18 @@ client.on('interactionCreate', async (interaction) => {
 
     } else if (interaction.isButton()) {
 
-        console.log("Interaction ran was a button");
+        try {
+            console.log("Interaction ran was a button");
 
-        const buttonID = await interaction.component.customId;
-        console.log(buttonID);
-
-        const file = await require(`./buttons/${buttonID}`);
-        console.log("File is " + file);
-        await file.execute(client, interaction, cache, audio);
+            const buttonID = await interaction.component.customId;
+            console.log(buttonID);
+    
+            const file = await require(`./buttons/${buttonID}`);
+            console.log("File is " + file);
+            await file.execute(client, interaction, cache, audio);
+        } catch (e) {
+            console.log(e);
+        }
 
     } else if (interaction.isAutocomplete()) {
         let serverQueue = cache.get(interaction.guild.id);
