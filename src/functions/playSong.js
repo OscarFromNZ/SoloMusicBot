@@ -25,6 +25,8 @@ module.exports = {
         let connection = serverQueue.connection;
         //const connection = getVoiceConnection(interaction.guild.id);
 
+        if (!interaction.channel) return;
+
         if (serverQueue.songs.length < 1) {
             const emb = new MessageEmbed()
                 .setAuthor({ name: "I cannot find any songs in the queue to play!", iconURL: interaction.member.user.avatarURL(), url: 'https://discord.gg/Rkq2f3b8Tn' })
