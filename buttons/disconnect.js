@@ -4,6 +4,8 @@ const {
 
 const vars = require('../variables.json');
 
+const { getVoiceConnection } = require('@discordjs/voice');
+
 module.exports = {
     async execute(client, interaction, cache, audio) {
 
@@ -40,7 +42,7 @@ module.exports = {
         }
 
 
-        var connection = serverQueue.connection;
+        var connection = getVoiceConnection(interaction.guild.id);
 
         var player = audio.get(interaction.guild.id);
 
