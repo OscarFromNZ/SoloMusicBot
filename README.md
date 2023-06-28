@@ -1,4 +1,4 @@
-# [Add me to your server!](https://discord.com/api/oauth2/authorize?client_id=928009793099149373&permissions=2184563712&scope=bot%20applications.commands)
+# stopped working on this
 
 ![Solo (1)](https://user-images.githubusercontent.com/93412639/183234556-ecf2b0b0-2577-410c-a30a-e6a9a8d01092.gif)
 
